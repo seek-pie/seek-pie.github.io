@@ -1,0 +1,934 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="RESTful HTTP, Crab2Died dsolvers github Excel4J blog 螃蟹以死">
+    <meta name="description" content="一 REST由来
+REST(Representational State Transfer 表征性状态转移)
+2000年Roy Fielding的博士论文中首次提出
+REST是架构风格，是设计思想，不是标准也不是协议
+REST强调组件交互的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>RESTful HTTP | 螃蟹以死</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="../../../../../index.html" class="waves-effect waves-light">
+                        
+                        <img src="/medias/Dsolvers.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">螃蟹以死</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/Dsolvers.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">螃蟹以死</div>
+        <div class="logo-desc">
+            
+            https://dsolvers.github.io
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Crab2died" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Crab2died" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '../../../../../index.html';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/images/net/restful_api.jpeg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        RESTful HTTP
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="../../../../../tags/REST/" target="_blank">
+                    <span class="chip bg-color">REST</span>
+                </a>
+                
+                <a href="../../../../../tags/HTTP/" target="_blank">
+                    <span class="chip bg-color">HTTP</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="../../../../../categories/HTTP/" class="post-category" target="_blank">
+                        HTTP
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-06-27
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一-REST由来"><a href="#一-REST由来" class="headerlink" title="一 REST由来"></a>一 REST由来</h2><ol>
+<li>REST(Representational State Transfer 表征性状态转移)</li>
+<li>2000年Roy Fielding的博士论文中首次提出</li>
+<li>REST是架构风格，是设计思想，不是标准也不是协议</li>
+<li>REST强调组件交互的可伸缩性、接口的通用性、组件的独立部署、以及用来减少交互延迟、增强安全性、封装遗留系统的中间组件</li>
+</ol>
+<h2 id="二-REST特点"><a href="#二-REST特点" class="headerlink" title="二 REST特点"></a>二 REST特点</h2><ol>
+<li>服务端(server)与客户端(client)解耦<ul>
+<li>简化服务端的可伸缩性，提高客户端便捷性</li>
+</ul>
+</li>
+<li>面向资源，每一个资源都有唯一(CRUD等操作不会变)的标识符</li>
+<li>无状态(Stateless)，请求必须包含所有处理该请求的全部信息<ul>
+<li>提高可见性，每个请求都是独立的，无需其他依赖的</li>
+<li>提高可靠性，故障恢复更容易</li>
+<li>提升扩展性，减少了服务器资源消耗</li>
+</ul>
+</li>
+<li>可缓存(Cachable)<ul>
+<li>减少交互次数，减少网络延时</li>
+</ul>
+</li>
+<li>分层系统(Layered System)<ul>
+<li>允许Client与Server中间层(代理，网关等)代替Server端处理请求，客户端无需关心与他交互组件的其他之外的事</li>
+<li>提高了系统可扩展性，简化系统复杂度</li>
+</ul>
+</li>
+<li>统一接口(Uniform Interface)<ul>
+<li>服务端与客户端统一化的方法(GET/PUT/POST/DELETE)通信</li>
+<li>提高了接口的可见性</li>
+</ul>
+</li>
+<li>按需代码(Code-On-Demand)<ul>
+<li>提升系统可扩展性</li>
+</ul>
+</li>
+</ol>
+<h2 id="三-为什么要遵循REST"><a href="#三-为什么要遵循REST" class="headerlink" title="三 为什么要遵循REST"></a>三 为什么要遵循REST</h2><ol>
+<li>可更高效利用缓存来提高响应速度</li>
+<li>通讯本身的无状态性可以让不同的服务器的处理一系列请求中的不同请求，提高服务器的扩展性</li>
+<li>浏览器即可作为客户端，简化软件需求</li>
+<li>相对于其他叠加在HTTP协议之上的机制，REST的软件依赖性更小</li>
+<li>不需要额外的资源发现机制</li>
+<li>在软件技术演进中的长期的兼容性更好</li>
+</ol>
+<h2 id="四-RESTful最佳实践"><a href="#四-RESTful最佳实践" class="headerlink" title="四 RESTful最佳实践"></a>四 RESTful最佳实践</h2><ol>
+<li>URI规则<ul>
+<li>版本化(其一)   如: /api/v1</li>
+<li>使用名词，而不是动词  如: blog</li>
+<li>使用小写，用 _做词连接，而不用-</li>
+<li>表示资源集合时，使用复数形式     如: blogs</li>
+<li>子资源关系表示   示例: /blog/100/comments</li>
+<li>为减少URI层级深度,引入适当的参数查询</li>
+</ul>
+</li>
+<li>Request Method  (资源的CRUD)<ul>
+<li>GET/HEAD : 查询资源<ul>
+<li>GET /blog/100</li>
+<li>GET /blog/100/comments</li>
+</ul>
+</li>
+<li>POST: 创建资源<ul>
+<li>POST /blog</li>
+<li>POST /blog/100/comment</li>
+</ul>
+</li>
+<li>PUT/PATCH: 更新资源<ul>
+<li>PUT /blog/100</li>
+<li>PUT /blog/100/comment/1</li>
+</ul>
+</li>
+<li>DELETE: 删除资源<ul>
+<li>DELETE /blog/100</li>
+<li>DELETE /blog/100/comment/1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Response<ul>
+<li>一般地，返回JSON数据而不是XML</li>
+<li>不过滤API返回的空格，支持gzip/deflate压缩,Content-Encoding: gzip/deflate</li>
+<li>统一的返回格式，错误码信息等</li>
+<li>常见HTTP status<ul>
+<li><strong>200   OK</strong> - 对成功的GET、PUT、PATCH或DELETE操作进行响应。也可以被用在不创建新资源的POST操作上</li>
+<li><strong>201   Created</strong> - 对创建新资源的POST操作进行响应。应该带着指向新资源地址的Location header</li>
+<li><strong>204   No Content</strong> - 对不会返回响应体的成功请求进行响应（比如DELETE请求）</li>
+<li><strong>304   Not Modified</strong> - HTTP缓存header生效的时候用</li>
+<li><strong>400   Bad Request</strong> - 请求异常，比如请求中的body无法解析</li>
+<li><strong>401   Unauthorized</strong> - 没有进行认证或者认证非法。当API通过浏览器访问的时候，可以用来弹出一个认证对话框</li>
+<li><strong>403   Forbidden</strong> - 当认证成功，但是认证过的用户没有访问资源的权限</li>
+<li><strong>404   Not Found</strong> - 当一个不存在的资源被请求</li>
+<li><strong>405   Method Not Allowed</strong> - 所请求的HTTP方法不允许当前认证用户访问</li>
+<li><strong>410   Gone</strong> - 表示当前请求的资源不再可用。当调用老版本API的时候很有用</li>
+<li><strong>415   Unsupported Media Type</strong> - 如果请求中的内容类型是错误的</li>
+<li><strong>422   Unprocessable Entity</strong> - 用来表示校验错误</li>
+<li><strong>429   Too Many Requests</strong> - 由于请求频次达到上限而被拒绝访问</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>认证<ul>
+<li>RESTful API无状态的，每个请求都要自带凭证。</li>
+<li>使用基于SSL来保证传输安全的OAauth 2</li>
+</ul>
+</li>
+<li>缓存<ul>
+<li>强制缓存<ul>
+<li><strong>Cache-Control</strong>与<strong>Expires</strong></li>
+</ul>
+</li>
+<li>比对缓存<ul>
+<li>1、<strong>Last-Modified</strong>与<strong>If-Modified-Since</strong></li>
+<li>2、<strong>Etag</strong>与<strong>If-None-Match</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>HATEOAS (Hypermedia as the Engine of Application State)<ul>
+<li>超媒体作为应用状态的引擎，即在返回结果中提供链接,指向其他API,为用户调用提供指引信息。如: 当调用<a href="http://api.blog.com" target="_blank" rel="noopener">http://api.blog.com</a> 时返回<pre><code class="json">{
+    &quot;link&quot;: {
+        &quot;rel&quot;: &quot;collection https://www.blog.com/blogs&quot;,
+        &quot;href&quot;: &quot;https://api.blog.com/blogs&quot;,
+        &quot;title&quot;: &quot;List of blogs&quot;,
+        &quot;type&quot;: &quot;application/vnd.yourformat+json&quot;
+    }
+}
+</code></pre>
+rel 表示与该API的关系，href表示指引API的链接，title表示API的标题，type表示接受类型</li>
+</ul>
+</li>
+<li>HTTP Request Method覆盖<ul>
+<li>一些老的HTTP Client只支持GET、POST请求，为了兼容这些Client，API需要覆盖HTTP方法，一般做法是HTTP POST请求会有一个<br><strong>X-HTTP-Method-Override</strong>请求头，其值为PUT,PATCH,DELETE之一,以此兼容请求。</li>
+</ul>
+</li>
+<li>限制速度<ul>
+<li>避免请求泛滥，HTTP引入状态码429(Too Many Requests)</li>
+<li>一般地，是返回头信息(依照twitter的命名规则)<ul>
+<li><strong>X-Rate-Limit-Limit</strong>: 当前时间段允许的并发请求数</li>
+<li><strong>X-Rate-Limit-Remaining</strong>: 当前时间段保留的请求数。</li>
+<li><strong>X-Rate-Limit-Reset</strong>: 重置时间(秒)</li>
+<li><strong>Retry-After</strong>: 下一次访问应该等待的时间(秒)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://dsolvers.github.io" class="b-link-green">螃蟹以死</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="" class="b-link-green">RESTful HTTP</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '3IJIId6bEDzJSpnHj0RmiL3b-gzGzoHsz',
+        appKey: 'zWED5AAgAncE2pdTftdKV3f4',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'Leave a comment'
+    });
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="../../../10/26/pseudo-distributed-hadoop-install/">
+                    <div class="card-image">
+                        
+                        <img src="/images/hadoop/hadoop_logo_01.png" class="responsive-img" alt="Pseudo Distributed Hadoop Install">
+                        
+                        <span class="card-title">Pseudo Distributed Hadoop Install</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一 环境准备准备Ubuntu、JDK8、Hadoop2.8.5   安装Ubuntu https://www.ubuntu.com/download/desktop   安装JDK,修改环境变量 https://www.oracle.com</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../../categories/Big-Data/" class="post-category" target="_blank">
+                                    Big Data
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../../tags/Big-Data/" target="_blank">
+                        <span class="chip bg-color">Big Data</span>
+                    </a>
+                    
+                    <a href="../../../../../tags/Hadoop/" target="_blank">
+                        <span class="chip bg-color">Hadoop</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="../../26/redis-cache-summarize/">
+                    <div class="card-image">
+                        
+                        <img src="/images/db/redis.jpeg" class="responsive-img" alt="Redis Cache Summarize">
+                        
+                        <span class="card-title">Redis Cache Summarize</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 概述
+Redis全称: Remote Dictionary Server
+基于内存的Key-Value存储系统，单线程实现  
+多样的数据类型，支持的数据类型有：string(字符串)、hash(哈希)、list(链表)、set(集合</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../../categories/Cache/" class="post-category" target="_blank">
+                                    Cache
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../../tags/Cache/" target="_blank">
+                        <span class="chip bg-color">Cache</span>
+                    </a>
+                    
+                    <a href="../../../../../tags/Redis/" target="_blank">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright &copy;2018 Dsolvers
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</body>
+</html>
