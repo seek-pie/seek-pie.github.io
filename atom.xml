@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Dsolvers</title>
+  
+  <subtitle>Crab2Died</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://dsolvers.github.io/"/>
+  <updated>2018-12-08T16:58:56.167Z</updated>
+  <id>https://dsolvers.github.io/</id>
+  
+  <author>
+    <name>Crab2Died</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pseudo Distributed Hbase Install</title>
+    <link href="https://dsolvers.github.io/2018/10/26/pseudo-distributed-hbase-install/"/>
+    <id>https://dsolvers.github.io/2018/10/26/pseudo-distributed-hbase-install/</id>
+    <published>2018-10-26T13:45:27.000Z</published>
+    <updated>2018-12-08T16:58:56.167Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-环境准备&quot;&gt;&lt;a href=&quot;#一-环境准备&quot; class=&quot;headerlink&quot; title=&quot;一 环境准备&quot;&gt;&lt;/a&gt;一 环境准备&lt;/h2&gt;&lt;h3 id=&quot;1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Big Data" scheme="https://dsolvers.github.io/categories/Big-Data/"/>
+    
+    
+      <category term="Big Data" scheme="https://dsolvers.github.io/tags/Big-Data/"/>
+    
+      <category term="HBase" scheme="https://dsolvers.github.io/tags/HBase/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pseudo Distributed Hadoop Install</title>
+    <link href="https://dsolvers.github.io/2018/10/26/pseudo-distributed-hadoop-install/"/>
+    <id>https://dsolvers.github.io/2018/10/26/pseudo-distributed-hadoop-install/</id>
+    <published>2018-10-26T13:11:27.000Z</published>
+    <updated>2018-12-08T16:58:56.189Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-环境准备&quot;&gt;&lt;a href=&quot;#一-环境准备&quot; class=&quot;headerlink&quot; title=&quot;一 环境准备&quot;&gt;&lt;/a&gt;一 环境准备&lt;/h2&gt;&lt;h3 id=&quot;准备Ubuntu、JDK8、Hadoop2-8-5&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Big Data" scheme="https://dsolvers.github.io/categories/Big-Data/"/>
+    
+    
+      <category term="Big Data" scheme="https://dsolvers.github.io/tags/Big-Data/"/>
+    
+      <category term="Hadoop" scheme="https://dsolvers.github.io/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RESTful HTTP</title>
+    <link href="https://dsolvers.github.io/2018/06/27/restful-http/"/>
+    <id>https://dsolvers.github.io/2018/06/27/restful-http/</id>
+    <published>2018-06-26T17:11:27.000Z</published>
+    <updated>2018-12-08T17:02:29.857Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-REST由来&quot;&gt;&lt;a href=&quot;#一-REST由来&quot; class=&quot;headerlink&quot; title=&quot;一 REST由来&quot;&gt;&lt;/a&gt;一 REST由来&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;REST(Representational State Transfer
+        
+      
+    
+    </summary>
+    
+      <category term="HTTP" scheme="https://dsolvers.github.io/categories/HTTP/"/>
+    
+    
+      <category term="REST" scheme="https://dsolvers.github.io/tags/REST/"/>
+    
+      <category term="HTTP" scheme="https://dsolvers.github.io/tags/HTTP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis Cache Summarize</title>
+    <link href="https://dsolvers.github.io/2018/06/26/redis-cache-summarize/"/>
+    <id>https://dsolvers.github.io/2018/06/26/redis-cache-summarize/</id>
+    <published>2018-06-26T02:11:27.000Z</published>
+    <updated>2018-12-08T17:02:29.833Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1. 概述&quot;&gt;&lt;/a&gt;1. 概述&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Redis全称: Remote Dictionary
+        
+      
+    
+    </summary>
+    
+      <category term="Cache" scheme="https://dsolvers.github.io/categories/Cache/"/>
+    
+    
+      <category term="Cache" scheme="https://dsolvers.github.io/tags/Cache/"/>
+    
+      <category term="Redis" scheme="https://dsolvers.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java Classloader</title>
+    <link href="https://dsolvers.github.io/2018/06/25/java-classloader/"/>
+    <id>https://dsolvers.github.io/2018/06/25/java-classloader/</id>
+    <published>2018-06-25T01:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.872Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-类加载时机&quot;&gt;&lt;a href=&quot;#1-类加载时机&quot; class=&quot;headerlink&quot; title=&quot;1. 类加载时机&quot;&gt;&lt;/a&gt;1. 类加载时机&lt;/h2&gt;&lt;h3 id=&quot;1-1-生命周期&quot;&gt;&lt;a href=&quot;#1-1-生命周期&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="Classloader" scheme="https://dsolvers.github.io/tags/Classloader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The Interview Experience</title>
+    <link href="https://dsolvers.github.io/2018/06/19/interview-experience/"/>
+    <id>https://dsolvers.github.io/2018/06/19/interview-experience/</id>
+    <published>2018-06-19T01:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.913Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-JAVA基础&quot;&gt;&lt;a href=&quot;#一-JAVA基础&quot; class=&quot;headerlink&quot; title=&quot;一. JAVA基础&quot;&gt;&lt;/a&gt;一. JAVA基础&lt;/h2&gt;&lt;h3 id=&quot;1-9种基本数据类型及其封装类-所占大小&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Interview" scheme="https://dsolvers.github.io/categories/Interview/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="Interview" scheme="https://dsolvers.github.io/tags/Interview/"/>
+    
+      <category term="Experience" scheme="https://dsolvers.github.io/tags/Experience/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Database</title>
+    <link href="https://dsolvers.github.io/2018/06/18/database/"/>
+    <id>https://dsolvers.github.io/2018/06/18/database/</id>
+    <published>2018-06-18T15:15:27.000Z</published>
+    <updated>2018-12-08T17:01:16.323Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-四大特性-CIAD&quot;&gt;&lt;a href=&quot;#一-四大特性-CIAD&quot; class=&quot;headerlink&quot; title=&quot;一. 四大特性(CIAD)&quot;&gt;&lt;/a&gt;一.
+        
+      
+    
+    </summary>
+    
+      <category term="Database" scheme="https://dsolvers.github.io/categories/Database/"/>
+    
+    
+      <category term="Database" scheme="https://dsolvers.github.io/tags/Database/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java Compile and Optimize</title>
+    <link href="https://dsolvers.github.io/2018/06/17/java-compile-and-optimize/"/>
+    <id>https://dsolvers.github.io/2018/06/17/java-compile-and-optimize/</id>
+    <published>2018-06-17T05:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.790Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-早期-编译期-优化&quot;&gt;&lt;a href=&quot;#1-早期-编译期-优化&quot; class=&quot;headerlink&quot; title=&quot;1. 早期(编译期)优化&quot;&gt;&lt;/a&gt;1. 早期(编译期)优化&lt;/h2&gt;&lt;h3 id=&quot;1-1-概论&quot;&gt;&lt;a href=&quot;#1-1-概论&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="JIT" scheme="https://dsolvers.github.io/tags/JIT/"/>
+    
+      <category term="Optimize" scheme="https://dsolvers.github.io/tags/Optimize/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java Collection Frame</title>
+    <link href="https://dsolvers.github.io/2018/06/15/java-collection-frame/"/>
+    <id>https://dsolvers.github.io/2018/06/15/java-collection-frame/</id>
+    <published>2018-06-15T05:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.774Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-JAVA集合框架图&quot;&gt;&lt;a href=&quot;#1-JAVA集合框架图&quot; class=&quot;headerlink&quot; title=&quot;1. JAVA集合框架图&quot;&gt;&lt;/a&gt;1. JAVA集合框架图&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;集合框架&lt;br&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="Collection" scheme="https://dsolvers.github.io/tags/Collection/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java GC</title>
+    <link href="https://dsolvers.github.io/2018/06/15/java-gc/"/>
+    <id>https://dsolvers.github.io/2018/06/15/java-gc/</id>
+    <published>2018-06-15T05:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.815Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-Java虚拟机内存区域&quot;&gt;&lt;a href=&quot;#一-Java虚拟机内存区域&quot; class=&quot;headerlink&quot; title=&quot;一. Java虚拟机内存区域&quot;&gt;&lt;/a&gt;一. Java虚拟机内存区域&lt;/h2&gt;&lt;h3 id=&quot;1-运行时数据区&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="GC" scheme="https://dsolvers.github.io/tags/GC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java Concurrent</title>
+    <link href="https://dsolvers.github.io/2018/06/15/java-concurrent/"/>
+    <id>https://dsolvers.github.io/2018/06/15/java-concurrent/</id>
+    <published>2018-06-15T04:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.891Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-JAVA与线程&quot;&gt;&lt;a href=&quot;#1-JAVA与线程&quot; class=&quot;headerlink&quot; title=&quot;1. JAVA与线程&quot;&gt;&lt;/a&gt;1. JAVA与线程&lt;/h2&gt;&lt;h3 id=&quot;1-1-线程的实现&quot;&gt;&lt;a href=&quot;#1-1-线程的实现&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="Concurrent" scheme="https://dsolvers.github.io/tags/Concurrent/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java Memory Model</title>
+    <link href="https://dsolvers.github.io/2018/06/15/java-memory-model/"/>
+    <id>https://dsolvers.github.io/2018/06/15/java-memory-model/</id>
+    <published>2018-06-15T03:11:27.000Z</published>
+    <updated>2018-12-08T17:02:29.750Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-内存模型-JMM&quot;&gt;&lt;a href=&quot;#1-内存模型-JMM&quot; class=&quot;headerlink&quot; title=&quot;1. 内存模型(JMM)&quot;&gt;&lt;/a&gt;1. 内存模型(JMM)&lt;/h2&gt;&lt;p&gt; &lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="JMM" scheme="https://dsolvers.github.io/tags/JMM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JAVA Monitor Tools</title>
+    <link href="https://dsolvers.github.io/2018/06/14/java-monitor-tools/"/>
+    <id>https://dsolvers.github.io/2018/06/14/java-monitor-tools/</id>
+    <published>2018-06-14T04:45:27.000Z</published>
+    <updated>2018-12-08T17:00:23.355Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-jps-JVM-Process-Status-Tool&quot;&gt;&lt;a href=&quot;#一-jps-JVM-Process-Status-Tool&quot; class=&quot;headerlink&quot; title=&quot;一. jps(JVM Process Status
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="Java Monitor" scheme="https://dsolvers.github.io/tags/Java-Monitor/"/>
+    
+  </entry>
+  
+</feed>

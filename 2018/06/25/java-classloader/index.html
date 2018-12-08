@@ -1,0 +1,921 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java Classloader, Crab2Died dsolvers github Excel4J blog 螃蟹以死">
+    <meta name="description" content="1. 类加载时机1.1 - 生命周期                      +-------------------------连接(Linking)----------------------------+
+   加载(Loading">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java Classloader | Dsolvers</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="../../../../index.html" class="waves-effect waves-light">
+                        
+                        <img src="/medias/Dsolvers.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Dsolvers</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/Dsolvers.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Dsolvers</div>
+        <div class="logo-desc">
+            
+            https://dsolvers.github.io
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Crab2died" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Crab2died" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '../../../../index.html';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/images/java/class_loader.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java Classloader
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="../../../../tags/Java/" target="_blank">
+                    <span class="chip bg-color">Java</span>
+                </a>
+                
+                <a href="../../../../tags/Classloader/" target="_blank">
+                    <span class="chip bg-color">Classloader</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                        Java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-06-25
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-类加载时机"><a href="#1-类加载时机" class="headerlink" title="1. 类加载时机"></a>1. 类加载时机</h2><h3 id="1-1-生命周期"><a href="#1-1-生命周期" class="headerlink" title="1.1 - 生命周期"></a>1.1 - 生命周期</h3><pre><code>                      +-------------------------连接(Linking)----------------------------+
+   加载(Loading) --&gt;  |  验证(Verification) --&gt; 准备(Preparation) --&gt; 解析(Resolution)   |
+                      +------------------------------------------------------------------+
+                                                                            ↓
+                                卸载(Unloading) &lt;-- 使用(Using) &lt;-- 初始化(Initialization)
+</code></pre><h3 id="1-2-立即初始化-主动引用"><a href="#1-2-立即初始化-主动引用" class="headerlink" title="1.2 - 立即初始化(主动引用)"></a>1.2 - 立即初始化(主动引用)</h3><ol>
+<li>遇到<code>new</code>、 <code>getstatic</code>、 <code>putstatic</code>或<code>invokestatic</code>这4条字节码指令时</li>
+<li>使用<code>java.lang.reflect</code>包的方法对类进行反射调用的时候,如果类没有进行过初始化,则需要先触发其初始化.</li>
+<li>当初始化一个类的时候,如果发现其父类还没有进行过初始化,则需要先触发其父类的初始化.</li>
+<li>当虚拟机启动时,用户需要指定一个要执行的主类(包含<code>main()</code>方法的那个类),虚拟机会先初始化这个主类.</li>
+<li>当使用JDK 1.7的动态语言支持时,如果一个<code>java.lang.invoke.MethodHandle</code>实例最后的解析结果<strong>REF_getStatic</strong>、<br><strong>REF_putStatic</strong>、<strong>REF_invokeStatic</strong>的方法句柄,并且这个方法句柄所对应的类没有进行过初始化,则需要先触发其初始化.</li>
+</ol>
+<h3 id="1-3-被动加载"><a href="#1-3-被动加载" class="headerlink" title="1.3 - 被动加载"></a>1.3 - 被动加载</h3><ol>
+<li>子类调用父类静态方法,子类不会被初始化</li>
+<li>引用类型定义不初始化加载</li>
+<li>常量调用不会初始化类(编译期已进入常量池)</li>
+</ol>
+<h3 id="1-4-接口初始化"><a href="#1-4-接口初始化" class="headerlink" title="1.4 - 接口初始化"></a>1.4 - 接口初始化</h3><p>   &emsp;&emsp;当一个类在初始化时,要求其父类全部都已经初始化过了,但是一个接口在初始化时,并不要求其父接口全部都完成了初始化,<br>   只有在真正使用到父接口的时候(如引用接口中定义的常量)才会初始化.</p>
+<h2 id="2-类加载过程"><a href="#2-类加载过程" class="headerlink" title="2. 类加载过程"></a>2. 类加载过程</h2><h3 id="2-2-加载"><a href="#2-2-加载" class="headerlink" title="2.2 - 加载"></a>2.2 - 加载</h3><ol>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流(这一条玩出了很多技术,如:jsp(从其他文件中生成),Applet(从网络中获取),Proxy(运行时计算)).</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构.</li>
+<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象,作为方法区这个类的各种数据的访问入口.<br><strong>_<br>注:<br>加载阶段完成后,虚拟机外部的二进制字节流就按照虚拟机所需的格式存储在方法区之中,方法区中的数据存储格式由虚拟机实现自行定义,<br>虚拟机规范未规定此区域的具体数据结构. 然后在内存中实例化一个<code>java.lang.Class</code>类的对象(并没有明确规定是在Java堆中,<br>对于HotSpot虚拟机而言,Class对象比较特殊,它虽然是对象,但是存放在方法区里面),<br>这个对象将作为程序访问方法区中的这些类型数据的外部接口.<br>_</strong></li>
+</ol>
+<h3 id="2-3-验证"><a href="#2-3-验证" class="headerlink" title="2.3 - 验证"></a>2.3 - 验证</h3><p>   &emsp;&emsp;确保Class文件的字节流中包含的信息符合当前虚拟机的要求,并且不会危害虚拟机自身的安全.<br>   <code>-Xverify:none</code><br>   参数来关闭大部分的类验证措施,以缩短虚拟机类加载的时间.  </p>
+<ol>
+<li>文件格式验证<ul>
+<li>魔数<strong>0xCAFEBABE</strong>验证</li>
+<li>主、次版本号验证</li>
+<li>常量池常量验证</li>
+<li>UTF-8编码验证</li>
+<li>…</li>
+</ul>
+</li>
+<li>元数据验证<ul>
+<li>这个类是否有父类</li>
+<li>该类是否继承了不能继承的类(如:<code>final类</code>)</li>
+<li>…</li>
+</ul>
+</li>
+<li>字节码验证<br>第三阶段是整个验证过程中最复杂的一个阶段,主要目的是通过数据流和控制流分析,确定程序语义是合法的、 符合逻辑的.<ul>
+<li>保证跳转指令不会跳转到方法体以外的字节码指令上.</li>
+<li>保证方法体中的类型转换是有效的</li>
+<li>…</li>
+</ul>
+</li>
+<li>符号引用验证<ul>
+<li>符号引用中通过字符串描述的全限定名是否能找到对应的类.</li>
+<li>在指定类中是否存在符合方法的字段描述符以及简单名称所描述的方法和字段.</li>
+<li>符号引用中的类、 字段、 方法的访问性(<code>private</code>、 <code>protected</code>、 <code>public</code>、 <code>default</code>)是否可被当前类访问<br>(不通过将抛一个IncompatibleClassChangeError异常子类).</li>
+<li>…</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-4-准备"><a href="#2-4-准备" class="headerlink" title="2-4 - 准备"></a>2-4 - 准备</h3><p>   &emsp;&emsp;准备阶段是正式为类变量分配内存并设置类变量初始值的阶段,这些变量所使用的内存都将在方法区中进行分配.<br>   注:内存分配仅包括类变量(static修饰),不包括实例变量;初始值通常是指零值(如:<code>public static int v = 123;</code> 初始值v为0而非123,<br>   但如<code>public static final int v = 123;</code>时将被初始化为123)</p>
+<h3 id="2-5-解析"><a href="#2-5-解析" class="headerlink" title="2-5 - 解析"></a>2-5 - 解析</h3><p>   &emsp;&emsp;解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程</p>
+<ul>
+<li>符号引用(Symbolic References)</li>
+<li>直接引用(Direct References)</li>
+<li>虚拟机对除invokedynamic(动态调用点限定符)指令外的操作进行缓存</li>
+<li>解析动作主要针对类或接口、 字段、 类方法、 接口方法、 方法类型、 方法句柄和调用点限定符7类符号引用进行,<br>分别对应于常量池的<strong>CONSTANT_Class_info</strong>、<strong>CONSTANT_Fieldref_info</strong>、 <strong>CONSTANT_Methodref_info</strong>、<br><strong>CONSTANT_InterfaceMethodref_info</strong>、 <strong>CONSTANT_MethodType_info</strong>、<strong>CONSTANT_MethodHandle_info</strong><br>和<strong>CONSTANT_InvokeDynamic_info</strong> 7种常量类型<ul>
+<li>1)类或接口解析</li>
+<li>2)字段解析</li>
+<li>3)类方法解析</li>
+<li>4)接口方法解析</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-初始化"><a href="#2-6-初始化" class="headerlink" title="2-6 - 初始化"></a>2-6 - 初始化</h3><p>   &emsp;&emsp;类加载的最后一步,真正执行java的字节码<code>.&lt;clinit&gt;()</code>方法保证在子类执行之前父类的<code>&lt;clinit&gt;()</code>已执行完毕.虚拟机中第一个被执<br>   行的<code>&lt;clinit&gt;()</code>方法的类肯定是<code>java.lang.Object.&lt;clinit&gt;()</code>虚拟机保证只执行一次,多线程时只会有一条线程执行,其他线程阻塞等待.</p>
+<h3 id="2-7-卸载"><a href="#2-7-卸载" class="headerlink" title="2-7 - 卸载"></a>2-7 - 卸载</h3><h2 id="3-类加载器"><a href="#3-类加载器" class="headerlink" title="3. 类加载器"></a>3. 类加载器</h2><p>   &emsp;&emsp;<strong>描述</strong><br>   &emsp;&emsp;通过一个类的全限定名来获取描述此类的二进制字节流<br>   应用:类层次划分、热部署、OSGi(面向Java的动态模型系统)、代码加密等</p>
+<h3 id="3-1-类与类加载器"><a href="#3-1-类与类加载器" class="headerlink" title="3-1 - 类与类加载器"></a>3-1 - 类与类加载器</h3><p>   &emsp;&emsp;相同的类被不同的类加载器加载他们必不相等.</p>
+<h3 id="3-2-双亲委派模型-Parents-Delegation-Model"><a href="#3-2-双亲委派模型-Parents-Delegation-Model" class="headerlink" title="3-2 - 双亲委派模型(Parents Delegation Model)"></a>3-2 - 双亲委派模型(Parents Delegation Model)</h3><p>   &emsp;&emsp;<strong>类加载器</strong>  </p>
+<ol>
+<li>启动类加载器(Bootstrap ClassLoader)C++实现、虚拟机一部分<ul>
+<li>又称 引导类加载器</li>
+<li>按名识别,如:rt.jar</li>
+<li>负责加载&lt;JAVA_HOME&gt;\lib目录或被参数<code>-Xbootclasspth</code>指定的目录</li>
+</ul>
+</li>
+<li><p>其他类加载器, java实现,独立与虚拟机外部,全部继承抽象类java.lang.ClassLoader</p>
+<ul>
+<li>扩展类加载器(Extension ClassLoader)<ul>
+<li>由sun.misc.Launcher$ExtClassLoader类实现</li>
+<li>负责加载&lt;JAVA_HOME&gt;\lib\ext目录或参数<code>-Djava.ext.dirs</code>所指定目录下的类</li>
+</ul>
+</li>
+<li>应用程序类加载器(Application ClassLoader)<ul>
+<li>又称 系统类加载器</li>
+<li>由sun.misc.Launcher$AppClassLoader实现</li>
+<li>它负责加载用户类路径(ClassPath)上所指定的类库,开发者可以直接使用这个类加载器,是程序中默认的类加载器  </li>
+</ul>
+</li>
+</ul>
+<p>双亲委派模型图</p>
+<pre><code>                                                 自定义类加载器(CustomClassLoader)
+                                                /
+启动类加载器 &lt;-- 扩展类加载器 &lt;-- 应用程序加载器 &lt;--
+                                                \
+                                                 自定义类加载器(CustomClassLoader)
+</code></pre><p>&emsp;&emsp;双亲委派模型的工作过程是:如果一个类加载器收到了类加载的请求,它首先不会自己去尝试加载这个类,而<br>是把这个请求委派给父类加载器去完成,每一个层次的类加载器都是如此,因此所有的加载请求最终都应该传送到顶层的启动类加载器中,<br>只有当父加载器反馈自己无法完成这个加载请求(它的搜索范围中没有找到所需的类)时,子加载器才会尝试自己去加载</p>
+</li>
+</ol>
+<h3 id="3-3-破坏双亲委派模型"><a href="#3-3-破坏双亲委派模型" class="headerlink" title="3-3 - 破坏双亲委派模型"></a>3-3 - 破坏双亲委派模型</h3><h2 id="4-问题"><a href="#4-问题" class="headerlink" title="4. 问题"></a>4. 问题</h2><h3 id="4-1-为什么要用双亲委派类加载"><a href="#4-1-为什么要用双亲委派类加载" class="headerlink" title="4-1 - 为什么要用双亲委派类加载"></a>4-1 - 为什么要用双亲委派类加载</h3><p>   &emsp;&emsp;双亲委派模型可以防止内存中出现多分同样的字节码，如果没有双亲委派模型的话如果用户编写了一个<code>java.lang.Object</code>的同<br>   名类放在classpath中，多个类加载器去加载这个类到内存中系统会出现多个不同的Object类，那么类之间的比较结果及类的唯一性将无法<br>   保证，而且如果不使用这种模型将给虚拟机带来安全隐患。</p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://dsolvers.github.io" class="b-link-green">Dsolvers</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="" class="b-link-green">Java Classloader</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '3IJIId6bEDzJSpnHj0RmiL3b-gzGzoHsz',
+        appKey: 'zWED5AAgAncE2pdTftdKV3f4',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'Leave a comment'
+    });
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="../../26/redis-cache-summarize/">
+                    <div class="card-image">
+                        
+                        <img src="/images/db/redis.jpeg" class="responsive-img" alt="Redis Cache Summarize">
+                        
+                        <span class="card-title">Redis Cache Summarize</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 概述
+Redis全称: Remote Dictionary Server
+基于内存的Key-Value存储系统，单线程实现  
+多样的数据类型，支持的数据类型有：string(字符串)、hash(哈希)、list(链表)、set(集合</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/Cache/" class="post-category" target="_blank">
+                                    Cache
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Cache/" target="_blank">
+                        <span class="chip bg-color">Cache</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Redis/" target="_blank">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="../../19/interview-experience/">
+                    <div class="card-image">
+                        
+                        <img src="/images/material/book.jpg" class="responsive-img" alt="The Interview Experience">
+                        
+                        <span class="card-title">The Interview Experience</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一. JAVA基础1. 9种基本数据类型及其封装类,所占大小
+
+
+类型
+包装类
+大小(字节)
+
+
+
+
+byte
+Byte
+1
+
+
+char
+Character
+2
+
+
+short
+Short
+2
+
+
+int
+Integer
+4
+
+
+floa</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/Interview/" class="post-category" target="_blank">
+                                    Interview
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Interview/" target="_blank">
+                        <span class="chip bg-color">Interview</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Experience/" target="_blank">
+                        <span class="chip bg-color">Experience</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright &copy;2018 Dsolvers
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</body>
+</html>

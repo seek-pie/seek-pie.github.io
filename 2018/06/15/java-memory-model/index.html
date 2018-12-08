@@ -1,0 +1,838 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java Memory Model, Crab2Died dsolvers github Excel4J blog 螃蟹以死">
+    <meta name="description" content="1. 内存模型(JMM) 
+2. 内存间的交互操作2.1. 定义操作
+lock(锁定)：作用于主内存的变量,它把一个变量标识为一条线程独占的状态.
+unlock(解锁)：作用于主内存的变量,它把一个处于锁定状态的变量释放出来,释放后的变量才">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java Memory Model | Dsolvers</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="../../../../index.html" class="waves-effect waves-light">
+                        
+                        <img src="/medias/Dsolvers.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Dsolvers</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/Dsolvers.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Dsolvers</div>
+        <div class="logo-desc">
+            
+            https://dsolvers.github.io
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Crab2died" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Crab2died" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '../../../../index.html';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/images/material/super_computer.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java Memory Model
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="../../../../tags/Java/" target="_blank">
+                    <span class="chip bg-color">Java</span>
+                </a>
+                
+                <a href="../../../../tags/JMM/" target="_blank">
+                    <span class="chip bg-color">JMM</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                        Java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-06-15
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-内存模型-JMM"><a href="#1-内存模型-JMM" class="headerlink" title="1. 内存模型(JMM)"></a>1. 内存模型(JMM)</h2><p> <img src="https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/concurrent/java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt="内存模型"></p>
+<h2 id="2-内存间的交互操作"><a href="#2-内存间的交互操作" class="headerlink" title="2. 内存间的交互操作"></a>2. 内存间的交互操作</h2><h3 id="2-1-定义操作"><a href="#2-1-定义操作" class="headerlink" title="2.1. 定义操作"></a>2.1. 定义操作</h3><ul>
+<li><strong>lock(锁定)</strong>：作用于主内存的变量,它把一个变量标识为一条线程独占的状态.</li>
+<li><strong>unlock(解锁</strong>)：作用于主内存的变量,它把一个处于锁定状态的变量释放出来,释放后的变量才可以被其他线程锁定.</li>
+<li><strong>read(读取</strong>)：作用于主内存的变量,它把一个变量的值从主内存传输到线程的工作内存中,以便随后的load动作使用.</li>
+<li><strong>load(载入)</strong>：作用于工作内存的变量,它把read操作从主内存中得到的变量值放入工作内存的变量副本中.</li>
+<li>use(使用)：作用于工作内存的变量,它把工作内存中一个变量的值传递给执行引擎,每当虚拟机遇到一个需要使用到<br>变量的值的字节码指令时将会执行这个操作.</li>
+<li><strong>assign(赋值)</strong>：作用于工作内存的变量,它把一个从执行引擎接收到的值赋给工作内存的变量,每当虚拟机遇到一个<br>给变量赋值的字节码指令时执行这个操作.</li>
+<li><strong>store(存储)</strong>：作用于工作内存的变量,它把工作内存中一个变量的值传送到主内存中,以便随后的write操作使用.</li>
+<li><strong>write(写入)</strong>：作用于主内存的变量,它把store操作从工作内存中得到的变量的值放入主内存的变量中.</li>
+</ul>
+<h3 id="2-2-约束条件"><a href="#2-2-约束条件" class="headerlink" title="2.2. 约束条件"></a>2.2. 约束条件</h3><ol>
+<li>read和load、store和write必须保证顺序操作,不能单独出现,但不需要连续操作,中间可隔有其他操作</li>
+<li>不允许一个线程丢弃它的最近的assign操作,即变量在工作内存中改变了之后必须把该变化同步回主内存.</li>
+<li>不允许一个线程无原因地(没有发生过任何assign操作)把数据从线程的工作内存同步回主内存中.</li>
+<li>一个新的变量只能在主内存中“诞生”,不允许在工作内存中直接使用一个未被初始化(load或assign)的变量,换句话说,<br>就是对一个变量实施use、 store操作之前,必须先执行过了assign和load操作.</li>
+<li>一个变量在同一个时刻只允许一条线程对其进行lock操作,但lock操作可以被同一条线程重复执行多次,多次执行lock后,<br>只有执行相同次数的unlock操作,变量才会被解锁</li>
+<li>如果对一个变量执行lock操作,那将会清空工作内存中此变量的值,在执行引擎使用这个变量前,<br>需要重新执行load或assign操作初始化变量的值.</li>
+<li>如果一个变量事先没有被lock操作锁定,那就不允许对它执行unlock操作,也不允许去unlock一个被其他线程锁定住的变量.</li>
+<li>对一个变量执行unlock操作之前,必须先把此变量同步回主内存中(执行store、 write操作)</li>
+</ol>
+<h3 id="2-3-volatile"><a href="#2-3-volatile" class="headerlink" title="2.3. volatile"></a>2.3. volatile</h3><p>   &emsp;&emsp;假定T表示一个线程,V和W分别表示两个volatile型变量,那么在进行read、 load、 use、 assign、store和write操作时<br>   需要满足如下规则:<br>   &emsp;&emsp;只有当线程T对变量V执行的前一个动作是load的时候,线程T才能对变量V执行use动作;并且,只有当线程T对变量V执行的后一个动作是use<br>   的时候,线程T才能对变量V执行load动作. 线程T对变量V的use动作可以认为是和线程T对变量V的load、 read动作相关联,必须连续一起出现<br>   (这条规则要求在工作内存中,每次使用V前都必须先从主内存刷新最新的值,用于保证能看见其他线程对变量V所做的修改后的值).<br>   &emsp;&emsp;只有当线程T对变量V执行的前一个动作是assign的时候,线程T才能对变量V执行store动作;并且,只有当线程T对变量V执行的后一个动作<br>   是store的时候,线程T才能对变量V执行assign动作. 线程T对变量V的assign动作可以认为是和线程T对变量V的store、 write动作相关<br>   联,必须连续一起出现(这条规则要求在工作内存中,每次修改V后都必须立刻同步回主内存中,用于保证其他线程可以看到自己对变量V所做的修改)<br>   &emsp;&emsp;假定动作A是线程T对变量V实施的use或assign动作,假定动作F是和动作A相关联的load或store动作,假定动作P是和动作F相应的对变量V<br>   的read或write动作;类似的,假定动作B是线程T对变量W实施的use或assign动作,假定动作G是和动作B相关联的load或store动作,假定动作<br>   Q是和动作G相应的对变量W的read或write动作. 如果A先于B,那么P先于Q(这条规则要求volatile修饰的变量不会被指令重排序优化,保证代<br>   码的执行顺序与程序的顺序相同).<br>   &emsp;&emsp;volatile不仅保证了共享变量的可见性，还通过内存屏障保证了代码执行顺序与程序顺序相同，通过内存屏障来使变量不被指令重排优化</p>
+<h3 id="2-4-long和double的非原子性协定"><a href="#2-4-long和double的非原子性协定" class="headerlink" title="2.4. long和double的非原子性协定"></a>2.4. long和double的非原子性协定</h3><p>  读写操作可分为2次32位操作,所以一定不是原子操作<br>  <strong><em>注：现在商用虚拟机本身几乎都已经实现了原子操作,所以不用volatile修饰符</em></strong></p>
+<h3 id="2-5-原子性"><a href="#2-5-原子性" class="headerlink" title="2.5 原子性"></a>2.5 原子性</h3><p>  变量操作的read、load、use、assign、store、write不保证了原子性<br>  通过synchronized对lock、unlock操作也保证了原子性</p>
+<h3 id="2-6-可见性"><a href="#2-6-可见性" class="headerlink" title="2.6 可见性"></a>2.6 可见性</h3><p>  volatile保证在读取共享变量之前去主内存刷最新值，还保证了最新值能及时同步至主内存</p>
+<h3 id="2-7-有序性"><a href="#2-7-有序性" class="headerlink" title="2.7 有序性"></a>2.7 有序性</h3><p>  在本线程内观察所有操作都是有序的，在另一个线程观察所有操作都是无序的</p>
+<h3 id="2-8-先发性"><a href="#2-8-先发性" class="headerlink" title="2.8 先发性"></a>2.8 先发性</h3><p>  先发生的线程对修改了共享变量的值、发送了消息或调用了方法会被后发生的线程所观察到  </p>
+<h3 id="2-9-先行发生-happens-before-规则"><a href="#2-9-先行发生-happens-before-规则" class="headerlink" title="2.9 先行发生(happens-before)规则"></a>2.9 先行发生(happens-before)规则</h3><p>   《JSR-133:Java Memory Model and Thread Specification》定义了如下happens-before规则。 </p>
+<ul>
+<li>1、程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。</li>
+<li>2、监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。</li>
+<li>3、volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。</li>
+<li>4、传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。</li>
+<li>5、start()规则：如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()操作happens-before于线程B中的任意操作。</li>
+<li>6、join()规则：如果线程A执行操作ThreadB.join()并成功返回，那么线程B中的任意操作happens-before于线程A从ThreadB.join()操作成功返回。</li>
+</ul>
+<h2 id="3-常见比较"><a href="#3-常见比较" class="headerlink" title="3. 常见比较"></a>3. 常见比较</h2><h3 id="3-1-volatile与synchronized比较"><a href="#3-1-volatile与synchronized比较" class="headerlink" title="3.1 volatile与synchronized比较"></a>3.1 volatile与synchronized比较</h3><ul>
+<li>1、被volatile描述的共享变量通过内存屏障是代码不被指令重排优化，从而保证了共享变量在线程间的可见性，更新变量时会及时<br>的将最新值同步至主内存，读变量时会及时的去主内存获取最新值，volatile只能修饰变量，只保证可见性，不保证原子性，不能用来<br>同步。</li>
+<li>2、synchronized是通过对象头的锁标志位来实现加锁与释放锁，不仅保证可见性，还保证了原子性，只有获得了对象锁的线程才能<br>进入临界区，其他线程会阻塞等待锁释放后再争抢锁。</li>
+</ul>
+<h3 id="3-2-Lock-ReentrantLock-与synchronized比较"><a href="#3-2-Lock-ReentrantLock-与synchronized比较" class="headerlink" title="3.2 Lock(ReentrantLock)与synchronized比较"></a>3.2 Lock(ReentrantLock)与synchronized比较</h3><ul>
+<li>1、synchronized是JAVA关键字，Lock是一个java接口，ReentrantLock实现了该接口</li>
+<li>2、Lock锁需要在finally{}代码里手动释放，synchronized会自动释放锁</li>
+<li>3、Lock根据实现不同有多种锁类型，如公平锁、非公平锁(默认非公平锁)</li>
+<li>4、性能方面，在锁竞争很大的情况下Lock性能更优于synchronized</li>
+</ul>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://dsolvers.github.io" class="b-link-green">Dsolvers</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="" class="b-link-green">Java Memory Model</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '3IJIId6bEDzJSpnHj0RmiL3b-gzGzoHsz',
+        appKey: 'zWED5AAgAncE2pdTftdKV3f4',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'Leave a comment'
+    });
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="../java-concurrent/">
+                    <div class="card-image">
+                        
+                        <img src="/images/material/maoxian.png" class="responsive-img" alt="Java Concurrent">
+                        
+                        <span class="card-title">Java Concurrent</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. JAVA与线程1.1 线程的实现
+实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.
+JDK1.2之前是基于用户线程实现的，JDK1.2及以后是基于操作系统原生线程模型实现的.
+
+1.2 Java线程调</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Concurrent/" target="_blank">
+                        <span class="chip bg-color">Concurrent</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">下一篇</div>
+            <div class="card">
+                <a href="../../14/java-monitor-tools/">
+                    <div class="card-image">
+                        
+                        <img src="/images/material/tech_tool.png" class="responsive-img" alt="JAVA Monitor Tools">
+                        
+                        <span class="card-title">JAVA Monitor Tools</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一. jps(JVM Process Status Tool)1. 介绍   类似UNIX的ps命令，列出虚拟机正在运行的进程信息
+2. 参数
+-q: 只输出进程ID
+-m: 输出主类启动时的参数
+-l: 输出主类全名，如果是jar则输出j</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Java-Monitor/" target="_blank">
+                        <span class="chip bg-color">Java Monitor</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright &copy;2018 Dsolvers
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</body>
+</html>

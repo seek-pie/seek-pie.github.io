@@ -1,0 +1,891 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="JAVA Monitor Tools, Crab2Died dsolvers github Excel4J blog 螃蟹以死">
+    <meta name="description" content="一. jps(JVM Process Status Tool)1. 介绍   类似UNIX的ps命令，列出虚拟机正在运行的进程信息
+2. 参数
+-q: 只输出进程ID
+-m: 输出主类启动时的参数
+-l: 输出主类全名，如果是jar则输出j">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JAVA Monitor Tools | Dsolvers</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="../../../../index.html" class="waves-effect waves-light">
+                        
+                        <img src="/medias/Dsolvers.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Dsolvers</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/Dsolvers.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Dsolvers</div>
+        <div class="logo-desc">
+            
+            https://dsolvers.github.io
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Crab2died" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Crab2died" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '../../../../index.html';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/images/material/tech_tool.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        JAVA Monitor Tools
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="../../../../tags/Java/" target="_blank">
+                    <span class="chip bg-color">Java</span>
+                </a>
+                
+                <a href="../../../../tags/Java-Monitor/" target="_blank">
+                    <span class="chip bg-color">Java Monitor</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                        Java
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-06-14
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一-jps-JVM-Process-Status-Tool"><a href="#一-jps-JVM-Process-Status-Tool" class="headerlink" title="一. jps(JVM Process Status Tool)"></a>一. jps(JVM Process Status Tool)</h2><h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>   类似UNIX的ps命令，列出虚拟机正在运行的进程信息</p>
+<h3 id="2-参数"><a href="#2-参数" class="headerlink" title="2. 参数"></a>2. 参数</h3><ul>
+<li><strong>-q</strong>: 只输出进程ID</li>
+<li><strong>-m</strong>: 输出主类启动时的参数</li>
+<li><strong>-l</strong>: 输出主类全名，如果是jar则输出jar路径</li>
+<li><strong>-v</strong>: 输出虚拟机启动时的JVM参数</li>
+</ul>
+<h2 id="二-jstat-JVM-Statistics-Monitoring-Tool"><a href="#二-jstat-JVM-Statistics-Monitoring-Tool" class="headerlink" title="二. jstat(JVM Statistics Monitoring Tool)"></a>二. jstat(JVM Statistics Monitoring Tool)</h2><h3 id="1-介绍-1"><a href="#1-介绍-1" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>   用于监视虚拟机各种运行状态信息的命令行工具。 它可以显示本地或者远程虚拟机进程中的类装载、 内存、 垃圾收集、 JIT编译等运行数据 </p>
+<h3 id="2-格式"><a href="#2-格式" class="headerlink" title="2. 格式"></a>2. 格式</h3><p>   jstat[option vmid[interval[s|ms][count]]]<br>   如<strong><code>jstat -class 14232(PID) 520(采样率) 4(采样次数)</code></strong></p>
+<h3 id="3-参数"><a href="#3-参数" class="headerlink" title="3. 参数"></a>3. 参数</h3><ul>
+<li><strong>-class</strong>: 监控类加载数量、卸载数量、总空间以及加载所用时间</li>
+<li><strong>-gc</strong>: 监控java堆状态，包括Eden区，2个survivor区，老年代，永久代容量、已用空间、GC时间合计等</li>
+<li><strong>-gccapacity</strong>: 与-gc基本相同，但主要关注java堆各个区域使用到的最大、最小空间</li>
+<li><strong>-gcutil</strong>: 与-gc基本相同，但主要关注java堆各个区域使用占比</li>
+<li><strong>-gccase</strong>: 与-gcutil一样，但会额外输出上一次GC的原因</li>
+<li><strong>-gcnew</strong>: 监控新生代GC状态</li>
+<li><strong>-gcnewcapacity</strong>: 与-gcnew基本相同，但主要关注的是使用到的最大、最小空间</li>
+<li><strong>-gcold</strong>: 监控老年代GC状态</li>
+<li><strong>-gcoldcapacity</strong>: 与-gcold基本相同，但主要关注的是使用道的最大、最小空间</li>
+<li><strong>-gcpermcapacity</strong>: 输出永久带使用到的最大、最小空间</li>
+<li><strong>-compiler</strong>: 输出JIT编译过的方法、耗时等信息</li>
+<li><strong>-printcompilation</strong>: 输出已被JIT编译过的方法</li>
+</ul>
+<h2 id="三-jinfo-Configuration-Info-for-Java"><a href="#三-jinfo-Configuration-Info-for-Java" class="headerlink" title="三. jinfo(Configuration Info for Java)"></a>三. jinfo(Configuration Info for Java)</h2><h3 id="1-介绍-2"><a href="#1-介绍-2" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>   实时地查看和调整虚拟机各项参数</p>
+<h3 id="2-格式-1"><a href="#2-格式-1" class="headerlink" title="2. 格式"></a>2. 格式</h3><p>   jinfo [option] pid 如 <code>jinfo -flags 14232</code></p>
+<h3 id="3-参数-1"><a href="#3-参数-1" class="headerlink" title="3. 参数"></a>3. 参数</h3><ul>
+<li><strong>-flag &lt;name&gt;</strong>: to print the value of the named VM flag. (输出JVM参数名为name的参数信息)</li>
+<li><strong>-flag +/-&lt;name&gt;</strong>: to enable or disable the named VM flag. (添加或除去JVM参数名为name的参数)</li>
+<li><strong>-flag &lt;name&gt;=&lt;value&gt;</strong>: to set the named VM flag to the given value. (设置JVM参数， 如-Xmx=1024m)</li>
+<li><strong>-flags</strong>: to print VM flags. (输出JVM启动参数信息)</li>
+<li><strong>-sysprops</strong>: to print Java system properties. (输出<code>System.getProperties()</code>信息)</li>
+</ul>
+<h2 id="四-jmap-Memory-Map-for-Java"><a href="#四-jmap-Memory-Map-for-Java" class="headerlink" title="四. jmap(Memory Map for Java)"></a>四. jmap(Memory Map for Java)</h2><h3 id="1-介绍-3"><a href="#1-介绍-3" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>   命令用于生成堆转储快照(一般称为heapdump或dump文件)<br>   其他生成dump文件方式:通过参数<code>-XX：+HeapDumpOnOutOfMemoryError</code>OOM时生成、<code>-XX：+HeapDumpOnCtrlBreak</code>通过<br>   [Ctrl]+[Break]键让虚拟机生成dump文件、或者Linux通过命令kill -3 pid也能拿到dump</p>
+<h3 id="2-格式-2"><a href="#2-格式-2" class="headerlink" title="2. 格式"></a>2. 格式</h3><p>   jmap [option] vmid </p>
+<h3 id="3-参数-2"><a href="#3-参数-2" class="headerlink" title="3. 参数"></a>3. 参数</h3><ul>
+<li><strong>-dump</strong>: 生成java堆转存快照, 格式 <code>-dump:[live, ],format=b,file=&lt;filename&gt;</code>, live表示是否只导出存活的对象</li>
+<li><strong>-finalizerinfo</strong>: 显示在F-Queen里面等待Finalizer线程执行finalize()方法的对象，只在Linux/Solaris平台有效</li>
+<li><strong>-heap</strong>: 显示java堆详细信息，如使用哪种GC回收器，参数配置、分代状况等信息，只在Linux/Solaris平台有效</li>
+<li><strong>-histo</strong>: 显示堆中对象统计信息，包括类、实例数量及合计容量等</li>
+<li><strong>-permstat</strong>: 以ClassLoader为统计口径显示永久带内存状态，只在Linux/Solaris平台有效</li>
+<li><strong>-F</strong>: 当-dump没响应时，使用-F强制生成dump文件，只在Linux/Solaris平台有效</li>
+</ul>
+<h2 id="五-jhat-JVM-Heap-Analysis-Tool"><a href="#五-jhat-JVM-Heap-Analysis-Tool" class="headerlink" title="五. jhat(JVM Heap Analysis Tool)"></a>五. jhat(JVM Heap Analysis Tool)</h2><h3 id="1-介绍-4"><a href="#1-介绍-4" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>   分析jmap生成的堆转储快照(dump文件)</p>
+<h3 id="2-格式-3"><a href="#2-格式-3" class="headerlink" title="2. 格式"></a>2. 格式</h3><p>   jhat [-port 7001] &lt;dumpfile&gt;</p>
+<h3 id="3-参数-3"><a href="#3-参数-3" class="headerlink" title="3. 参数"></a>3. 参数</h3><ul>
+<li><strong>-port</strong>: server端口，可通过host:port访问</li>
+<li><strong>&lt;file&gt;</strong>: dump文件</li>
+<li><strong>-J&lt;flag&gt;</strong>: 运行参数,如: <code>-J-mx512m</code></li>
+</ul>
+<h2 id="六-jstack-Stack-Trace-for-Java"><a href="#六-jstack-Stack-Trace-for-Java" class="headerlink" title="六. jstack(Stack Trace for Java)"></a>六. jstack(Stack Trace for Java)</h2><h3 id="1-介绍-5"><a href="#1-介绍-5" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>   用于生成虚拟机当前时刻的线程快照(一般称为threaddump或者javacore文件)<br>   线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合，生成线程快照的主要目的是定位线程出现长时间停顿的原因，<br>   如线程间死锁、 死循环、 请求外部资源导致的长时间等待等都是导致线程长时间停顿的常见原因。 线程出现停顿的时候通过<br>   jstack来查看各个线程的调用堆栈，就可以知道没有响应的线程到底在后台做些什么事情，或者等待着什么资源</p>
+<h3 id="2-格式-4"><a href="#2-格式-4" class="headerlink" title="2. 格式"></a>2. 格式</h3><p>   jstack [option] vmid 如<code>jstack -l 14232</code></p>
+<h3 id="3-参数-4"><a href="#3-参数-4" class="headerlink" title="3. 参数"></a>3. 参数</h3><ul>
+<li><strong>-F</strong>: 当正常请求无响应时，强制输出线程堆栈</li>
+<li><strong>-l</strong>: 除堆栈外，显示关于锁的附加信息</li>
+<li><strong>-m</strong>: 如果调用到本地方法时，显示C/C++堆栈信息</li>
+</ul>
+<h3 id="4-日志分析"><a href="#4-日志分析" class="headerlink" title="4. 日志分析"></a>4. 日志分析</h3><ol>
+<li>线程分为New、Runnable、Running、Waiting、Timed_Waiting、Blocked、Dead等状态  <ul>
+<li><strong>New</strong>: 当线程对象创建时存在的状态，此时线程不可能执行；  </li>
+<li><strong>Runnable</strong>：当调用thread.start()后，线程变成为Runnable状态。只要得到CPU，就可以执行；  </li>
+<li><strong>Running</strong>：线程正在执行；  </li>
+<li><strong>Waiting</strong>：执行thread.join()或在锁对象调用obj.wait()等情况就会进该状态，表明线程正处于等待某个资源或条件发生来唤醒自己；  </li>
+<li><strong>Timed_Waiting</strong>：执行Thread.sleep(long)、thread.join(long)或obj.wait(long)等就会进该状态，与Waiting的区别在于Timed_Waiting的等待有时间限制；  </li>
+<li><strong>Blocked</strong>：如果进入同步方法或同步代码块，没有获取到锁，则会进入该状态；  </li>
+<li><strong>Dead</strong>：线程执行完毕，或者抛出了未捕获的异常之后，会进入dead状态，表示该线程结束  </li>
+</ul>
+</li>
+<li>其次，对于jstack日志，我们要着重关注如下关键信息  <ul>
+<li><strong>Deadlock</strong>：表示有死锁  </li>
+<li><strong>Waiting on condition</strong>：等待某个资源或条件发生来唤醒自己。具体需要结合jstacktrace来分析，比如线程正在sleep，网络读写繁忙而等待  </li>
+<li><strong>Blocked</strong>：阻塞  </li>
+<li><strong>Waiting on monitor entry</strong>：在等待获取锁  </li>
+<li><strong>in Object.wait()</strong>：获取锁后又执行obj.wait()放弃锁  </li>
+<li>对于Waiting on monitor entry 和 inObject.wait()的详细描述：Monitor是 Java中用以实现线程之间的互斥与协作的主要手段，<br>它可以看成是对象或者Class的锁。每一个对象都有，也仅有一个 monitor。从下图中可以看出，每个 Monitor在某个时刻，只能被一个<br>线程拥有，该线程就是 “Active Thread”，而其它线程都是 “Waiting Thread”，分别在两个队列 “Entry Set”和 “Wait Set”里面<br>等候。在 “Entry Set”中等待的线程状态是”Waiting for monitor entry”，而在 “Wait Set”中等待的线程状态是 “in Object.wait()”</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-附录"><a href="#5-附录" class="headerlink" title="5. 附录"></a>5. 附录</h3><p>   在JDK1.5中在<code>java.lang.Thread</code>类中新增了<code>getAllStackTraces()</code>方法获取虚拟机所有的线程<code>StackTraceElement</code><br>   对象，实现了大部分jstack功能，实际项目中可页面展示</p>
+<h2 id="七-VisualVM-All-in-One-Java-Troubleshooting-Tool"><a href="#七-VisualVM-All-in-One-Java-Troubleshooting-Tool" class="headerlink" title="七. VisualVM(All-in-One Java Troubleshooting Tool)"></a>七. VisualVM(All-in-One Java Troubleshooting Tool)</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>  是到目前为止随JDK发布的功能最强大的运行监视和故障处理程序，并且可以预见在未来一段时间内都是官方主力发展的虚拟机故障处理工具。<br>  官方在VisualVM的软件说明中写上了“All-in-One”的描述字样，预示着它除了运行监视、 故障处理外，还提供了很多其他方面的功能。</p>
+<h3 id="远程监控"><a href="#远程监控" class="headerlink" title="远程监控"></a>远程监控</h3><ul>
+<li>1、远程服务器启动jstatd服务<br>创建配置文件jstatd.policy内容为  <pre><code>grant codebase &quot;file:${java.home}/../lib/tools.jar&quot; {  
+   permission java.security.AllPermission;  
+};
+</code></pre>启动服务:<code>jstatd -J-Djava.security.policy=jstatd.policy -p 8701</code></li>
+<li>2、启动应用参数<pre><code>-Dcom.sun.management.jmxremote=true 
+-Dcom.sun.management.jmxremote.port=9090 
+-Dcom.sun.management.jmxremote.ssl=false 
+-Dcom.sun.management.jmxremote.authenticate=false
+-Djava.rmi.server.hostname=192.168.0.1
+</code></pre></li>
+<li>3、启动jvisualvm,操作步骤:<br>远程 -&gt; 添加远程主机 -&gt; 添加JMX链接</li>
+</ul>
+<h2 id="八-案列"><a href="#八-案列" class="headerlink" title="八. 案列"></a>八. 案列</h2><h3 id="1-利用jstack调试线程堆栈信息"><a href="#1-利用jstack调试线程堆栈信息" class="headerlink" title="1. 利用jstack调试线程堆栈信息"></a>1. 利用jstack调试线程堆栈信息</h3><ol>
+<li>jps得到PID，如14232</li>
+<li>查看进程PID的线程耗时情况,命令<code>ps -Lfp pid</code>或<code>top -Hp pid</code>找到最耗时的线程ID 如14253</li>
+<li>获取线程ID16进制编码<code>print &quot;%x\n&quot; 14253</code>为37ad</li>
+<li>用jstack获取线程堆栈信息<code>jstack 14232 |grep 37ad</code>打印如下信息:<br><code>&quot;VM Periodic Task Thread&quot; os_prio=0 tid=0x00007f772c00f800 nid=0x37ad waiting on condition</code><br>通过该日志分析表示该线程在等待某个资源来唤醒</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">转载请注明: </span>
+                    <a href="https://dsolvers.github.io" class="b-link-green">Dsolvers</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="" class="b-link-green">JAVA Monitor Tools</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '3IJIId6bEDzJSpnHj0RmiL3b-gzGzoHsz',
+        appKey: 'zWED5AAgAncE2pdTftdKV3f4',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'Leave a comment'
+    });
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="card">
+                <a href="../../15/java-memory-model/">
+                    <div class="card-image">
+                        
+                        <img src="/images/material/super_computer.jpg" class="responsive-img" alt="Java Memory Model">
+                        
+                        <span class="card-title">Java Memory Model</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 内存模型(JMM) 
+2. 内存间的交互操作2.1. 定义操作
+lock(锁定)：作用于主内存的变量,它把一个变量标识为一条线程独占的状态.
+unlock(解锁)：作用于主内存的变量,它把一个处于锁定状态的变量释放出来,释放后的变量才</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="../../../../tags/JMM/" target="_blank">
+                        <span class="chip bg-color">JMM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">本篇</div>
+            <div class="card">
+                <a href="">
+                    <div class="card-image">
+                        
+                        <img src="/images/material/tech_tool.png" class="responsive-img" alt="JAVA Monitor Tools">
+                        
+                        <span class="card-title">JAVA Monitor Tools</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一. jps(JVM Process Status Tool)1. 介绍   类似UNIX的ps命令，列出虚拟机正在运行的进程信息
+2. 参数
+-q: 只输出进程ID
+-m: 输出主类启动时的参数
+-l: 输出主类全名，如果是jar则输出j</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Java-Monitor/" target="_blank">
+                        <span class="chip bg-color">Java Monitor</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright &copy;2018 Dsolvers
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+    <!--<i class="fa fa-qq"></i>-->
+<!--</a>-->
+
+<a href="../../../../atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</body>
+</html>
