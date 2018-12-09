@@ -36,7 +36,7 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-</head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
 
 </head>
 
@@ -187,7 +187,7 @@
 <a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
     <i class="fa fa-envelope-open"></i>
 </a>
-<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: " data-position="top" data-delay="50">-->
     <!--<i class="fa fa-qq"></i>-->
 <!--</a>-->
 
@@ -332,48 +332,48 @@
             <div id="articleContent">
                 <h2 id="一-环境准备"><a href="#一-环境准备" class="headerlink" title="一 环境准备"></a>一 环境准备</h2><h3 id="1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0"><a href="#1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0" class="headerlink" title="1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0"></a>1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0</h3><p>   <a href="https://www.ubuntu.com/download/desktop" target="_blank" rel="noopener">安装Ubuntu https://www.ubuntu.com/download/desktop</a>;<br>   <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html</a>;<br>   <a href="http://hadoop.apache.org/" target="_blank" rel="noopener">安装Hadoop2.8.5 http://hadoop.apache.org/</a><br>   <a href="http://hbase.apache.org/" target="_blank" rel="noopener">下载HBase2.1.0 http://hbase.apache.org/</a></p>
 <h3 id="2-其他准备"><a href="#2-其他准备" class="headerlink" title="2. 其他准备"></a>2. 其他准备</h3><p>   部署Hadoop详见: <a href="https://dsolvers.github.io/2018/10/26/pseudo-distributed-hadoop-install/">Hadoop 伪分布式部署</a></p>
-<h2 id="二-部署HBase"><a href="#二-部署HBase" class="headerlink" title="二 部署HBase"></a>二 部署HBase</h2><h3 id="1-解压HBase"><a href="#1-解压HBase" class="headerlink" title="1. 解压HBase"></a>1. 解压HBase</h3><pre><code class="bash">      cd ~
-      sudo tar -zxf ~/Downloads/hbase-2.1.0-bin.tar.gz -C /usr/local # 解压到/usr/local中
-      cd /usr/local/                                              
-      chmod -R 777 ./hbase-2.1.0                                     # 设置权限
+<h2 id="二-部署HBase"><a href="#二-部署HBase" class="headerlink" title="二 部署HBase"></a>二 部署HBase</h2><h3 id="1-解压HBase"><a href="#1-解压HBase" class="headerlink" title="1. 解压HBase"></a>1. 解压HBase</h3><pre class=" language-bash"><code class="language-bash">      <span class="token function">cd</span> ~
+      <span class="token function">sudo</span> <span class="token function">tar</span> -zxf ~/Downloads/hbase-2.1.0-bin.tar.gz -C /usr/local <span class="token comment" spellcheck="true"># 解压到/usr/local中</span>
+      <span class="token function">cd</span> /usr/local/                                              
+      <span class="token function">chmod</span> -R 777 ./hbase-2.1.0                                     <span class="token comment" spellcheck="true"># 设置权限</span>
 </code></pre>
-<h3 id="2-配置HBase环境变量"><a href="#2-配置HBase环境变量" class="headerlink" title="2. 配置HBase环境变量"></a>2. 配置HBase环境变量</h3><pre><code class="bash">      export HBASE_HOME=//usr/local/hbase-2.1.0
-      export HBASE_CONF_DIR=${HBASE_HOME}/conf
-      export HBASE_CLASS_PATH=${HBASE_CONF_DIR}
-      export PATH=$PATH:${HBASE_HOME}/bin
+<h3 id="2-配置HBase环境变量"><a href="#2-配置HBase环境变量" class="headerlink" title="2. 配置HBase环境变量"></a>2. 配置HBase环境变量</h3><pre class=" language-bash"><code class="language-bash">      <span class="token function">export</span> HBASE_HOME<span class="token operator">=</span>//usr/local/hbase-2.1.0
+      <span class="token function">export</span> HBASE_CONF_DIR<span class="token operator">=</span><span class="token variable">${HBASE_HOME}</span>/conf
+      <span class="token function">export</span> HBASE_CLASS_PATH<span class="token operator">=</span><span class="token variable">${HBASE_CONF_DIR}</span>
+      <span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$PATH</span><span class="token keyword">:</span><span class="token variable">${HBASE_HOME}</span>/bin
 </code></pre>
-<h3 id="3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置"><a href="#3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置" class="headerlink" title="3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置"></a>3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置</h3><pre><code class="bash">      # 增加以下配置
-      export JAVA_HOME=/usr/local/jdk1.8.0_181  # JDK根目录
-      export HBASE_MANAGES_ZK=true              # 使用HBase自带zookeeper
+<h3 id="3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置"><a href="#3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置" class="headerlink" title="3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置"></a>3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置</h3><pre class=" language-bash"><code class="language-bash">      <span class="token comment" spellcheck="true"># 增加以下配置</span>
+      <span class="token function">export</span> JAVA_HOME<span class="token operator">=</span>/usr/local/jdk1.8.0_181  <span class="token comment" spellcheck="true"># JDK根目录</span>
+      <span class="token function">export</span> HBASE_MANAGES_ZK<span class="token operator">=</span>true              <span class="token comment" spellcheck="true"># 使用HBase自带zookeeper</span>
 </code></pre>
-<h3 id="4-修改配置文件-HBASE-HOME-conf-hbase-site-xml"><a href="#4-修改配置文件-HBASE-HOME-conf-hbase-site-xml" class="headerlink" title="4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml"></a>4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml</h3><pre><code class="xml">      &lt;configuration&gt;
-          &lt;property&gt;
-              &lt;name&gt;hbase.rootdir&lt;/name&gt;
-              &lt;value&gt;hdfs://crab2died:9000&lt;/value&gt;
-          &lt;/property&gt;
-          &lt;property&gt; 
-              &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;
-              &lt;value&gt;true&lt;/value&gt; 
-          &lt;/property&gt;
-      &lt;/configuration&gt;
+<h3 id="4-修改配置文件-HBASE-HOME-conf-hbase-site-xml"><a href="#4-修改配置文件-HBASE-HOME-conf-hbase-site-xml" class="headerlink" title="4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml"></a>4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml</h3><pre class=" language-xml"><code class="language-xml">      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.rootdir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://crab2died:9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span> 
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.cluster.distributed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span> 
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
 </code></pre>
 <h3 id="5-修改文件-HBASE-HOME-conf-regionservers"><a href="#5-修改文件-HBASE-HOME-conf-regionservers" class="headerlink" title="5. 修改文件${HBASE_HOME}/conf/regionservers"></a>5. 修改文件${HBASE_HOME}/conf/regionservers</h3><p>   将<code>localhost</code>改为<code>crab2died</code></p>
-<h3 id="6-解决HBase-master启动错误"><a href="#6-解决HBase-master启动错误" class="headerlink" title="6. 解决HBase master启动错误"></a>6. 解决HBase master启动错误</h3><pre><code class="bash">      # 执行cp 
-      cd /usr/local/hbase-2.1.0
-      cp ./lib/client-facing-thirdparty/htrace-core-3.1.0-incubating.jar ./lib
+<h3 id="6-解决HBase-master启动错误"><a href="#6-解决HBase-master启动错误" class="headerlink" title="6. 解决HBase master启动错误"></a>6. 解决HBase master启动错误</h3><pre class=" language-bash"><code class="language-bash">      <span class="token comment" spellcheck="true"># 执行cp </span>
+      <span class="token function">cd</span> /usr/local/hbase-2.1.0
+      <span class="token function">cp</span> ./lib/client-facing-thirdparty/htrace-core-3.1.0-incubating.jar ./lib
 </code></pre>
-<h3 id="7-验证版本"><a href="#7-验证版本" class="headerlink" title="7. 验证版本"></a>7. 验证版本</h3><pre><code class="bash">      hbase version
-      # 成功则会返回版本信息
+<h3 id="7-验证版本"><a href="#7-验证版本" class="headerlink" title="7. 验证版本"></a>7. 验证版本</h3><pre class=" language-bash"><code class="language-bash">      hbase version
+      <span class="token comment" spellcheck="true"># 成功则会返回版本信息</span>
 </code></pre>
-<h2 id="三-启动HBase"><a href="#三-启动HBase" class="headerlink" title="三 启动HBase"></a>三 启动HBase</h2><h3 id="1-先启动Hadoop-详见-Hadoop-伪分布式部署"><a href="#1-先启动Hadoop-详见-Hadoop-伪分布式部署" class="headerlink" title="1. 先启动Hadoop,详见: Hadoop 伪分布式部署"></a>1. 先启动Hadoop,详见: <a href="https://dsolvers.github.io/2018/10/26/pseudo-distributed-hadoop-install/">Hadoop 伪分布式部署</a></h3><h3 id="2-启动HBase"><a href="#2-启动HBase" class="headerlink" title="2. 启动HBase"></a>2. 启动HBase</h3><pre><code class="bash">      start-hbase.sh 
+<h2 id="三-启动HBase"><a href="#三-启动HBase" class="headerlink" title="三 启动HBase"></a>三 启动HBase</h2><h3 id="1-先启动Hadoop-详见-Hadoop-伪分布式部署"><a href="#1-先启动Hadoop-详见-Hadoop-伪分布式部署" class="headerlink" title="1. 先启动Hadoop,详见: Hadoop 伪分布式部署"></a>1. 先启动Hadoop,详见: <a href="https://dsolvers.github.io/2018/10/26/pseudo-distributed-hadoop-install/">Hadoop 伪分布式部署</a></h3><h3 id="2-启动HBase"><a href="#2-启动HBase" class="headerlink" title="2. 启动HBase"></a>2. 启动HBase</h3><pre class=" language-bash"><code class="language-bash">      start-hbase.sh 
 </code></pre>
-<h3 id="3-jps查看进程"><a href="#3-jps查看进程" class="headerlink" title="3. jps查看进程"></a>3. jps查看进程</h3><pre><code class="bash">      jps
+<h3 id="3-jps查看进程"><a href="#3-jps查看进程" class="headerlink" title="3. jps查看进程"></a>3. jps查看进程</h3><pre class=" language-bash"><code class="language-bash">      jps
       1257 HQuorumPeer
       1285 HMaster
       1312 HRegionServer
 </code></pre>
 <h3 id="4-查看HBase管理界面"><a href="#4-查看HBase管理界面" class="headerlink" title="4. 查看HBase管理界面:"></a>4. 查看HBase管理界面:</h3><p>   <a href="http://crab2died:16030" target="_blank" rel="noopener">http://crab2died:16030</a></p>
-<h3 id="5-进入命令行管理"><a href="#5-进入命令行管理" class="headerlink" title="5. 进入命令行管理:"></a>5. 进入命令行管理:</h3><pre><code class="bash">      hbase shell
+<h3 id="5-进入命令行管理"><a href="#5-进入命令行管理" class="headerlink" title="5. 进入命令行管理:"></a>5. 进入命令行管理:</h3><pre class=" language-bash"><code class="language-bash">      hbase shell
 </code></pre>
 
             </div>
@@ -779,7 +779,7 @@
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            Copyright &copy;2018 Dsolvers
+            Copyright &copy;2017 - 2018 Crab2Died. All Rights Reserved.
         </div>
         <div class="col s12 m4 l4 social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
@@ -787,7 +787,7 @@
 <a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
     <i class="fa fa-envelope-open"></i>
 </a>
-<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: " data-position="top" data-delay="50">-->
     <!--<i class="fa fa-qq"></i>-->
 <!--</a>-->
 

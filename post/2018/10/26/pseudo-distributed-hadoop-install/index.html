@@ -36,7 +36,7 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-</head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
 
 </head>
 
@@ -187,7 +187,7 @@
 <a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
     <i class="fa fa-envelope-open"></i>
 </a>
-<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: " data-position="top" data-delay="50">-->
     <!--<i class="fa fa-qq"></i>-->
 <!--</a>-->
 
@@ -331,101 +331,101 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="一-环境准备"><a href="#一-环境准备" class="headerlink" title="一 环境准备"></a>一 环境准备</h2><h3 id="准备Ubuntu、JDK8、Hadoop2-8-5"><a href="#准备Ubuntu、JDK8、Hadoop2-8-5" class="headerlink" title="准备Ubuntu、JDK8、Hadoop2.8.5"></a>准备Ubuntu、JDK8、Hadoop2.8.5</h3><p>   <a href="https://www.ubuntu.com/download/desktop" target="_blank" rel="noopener">安装Ubuntu https://www.ubuntu.com/download/desktop</a><br>   <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html</a><br>   <a href="http://hadoop.apache.org/" target="_blank" rel="noopener">下载Hadoop2.8.5 http://hadoop.apache.org/</a></p>
-<h3 id="其他准备"><a href="#其他准备" class="headerlink" title="其他准备"></a>其他准备</h3><h4 id="1-更新apt-sudo-apt-get-update"><a href="#1-更新apt-sudo-apt-get-update" class="headerlink" title="1. 更新apt sudo apt-get update"></a>1. 更新apt <code>sudo apt-get update</code></h4><h4 id="2-SSH安装，配置无密码SSH登入"><a href="#2-SSH安装，配置无密码SSH登入" class="headerlink" title="2. SSH安装，配置无密码SSH登入"></a>2. SSH安装，配置无密码SSH登入</h4><h5 id="2-1-SSH安装-sudo-apt-get-install-openssh-server"><a href="#2-1-SSH安装-sudo-apt-get-install-openssh-server" class="headerlink" title="2.1 SSH安装 sudo apt-get install openssh-server"></a>2.1 SSH安装 <code>sudo apt-get install openssh-server</code></h5><h5 id="2-2-配置SSH无密码登入"><a href="#2-2-配置SSH无密码登入" class="headerlink" title="2.2 配置SSH无密码登入"></a>2.2 配置SSH无密码登入</h5><pre><code class="bash">     cd ~/.ssh/                            # 若没有该目录，请先执行一次ssh crab2died
-     ssh-keygen -t rsa                     # 会有提示，都按回车就可以
-     cat ./id_rsa.pub &gt;&gt; ./authorized_keys # 加入授权
-     ssh crab2died                         # 验证无密码登入
+<h3 id="其他准备"><a href="#其他准备" class="headerlink" title="其他准备"></a>其他准备</h3><h4 id="1-更新apt-sudo-apt-get-update"><a href="#1-更新apt-sudo-apt-get-update" class="headerlink" title="1. 更新apt sudo apt-get update"></a>1. 更新apt <code>sudo apt-get update</code></h4><h4 id="2-SSH安装，配置无密码SSH登入"><a href="#2-SSH安装，配置无密码SSH登入" class="headerlink" title="2. SSH安装，配置无密码SSH登入"></a>2. SSH安装，配置无密码SSH登入</h4><h5 id="2-1-SSH安装-sudo-apt-get-install-openssh-server"><a href="#2-1-SSH安装-sudo-apt-get-install-openssh-server" class="headerlink" title="2.1 SSH安装 sudo apt-get install openssh-server"></a>2.1 SSH安装 <code>sudo apt-get install openssh-server</code></h5><h5 id="2-2-配置SSH无密码登入"><a href="#2-2-配置SSH无密码登入" class="headerlink" title="2.2 配置SSH无密码登入"></a>2.2 配置SSH无密码登入</h5><pre class=" language-bash"><code class="language-bash">     <span class="token function">cd</span> ~/.ssh/                            <span class="token comment" spellcheck="true"># 若没有该目录，请先执行一次ssh crab2died</span>
+     ssh-keygen -t rsa                     <span class="token comment" spellcheck="true"># 会有提示，都按回车就可以</span>
+     <span class="token function">cat</span> ./id_rsa.pub <span class="token operator">>></span> ./authorized_keys <span class="token comment" spellcheck="true"># 加入授权</span>
+     <span class="token function">ssh</span> crab2died                         <span class="token comment" spellcheck="true"># 验证无密码登入</span>
 </code></pre>
-<h4 id="3-修改hosts"><a href="#3-修改hosts" class="headerlink" title="3. 修改hosts"></a>3. 修改hosts</h4><pre><code class="bash">     sudo vi /etc/hosts
-     # 添加 
+<h4 id="3-修改hosts"><a href="#3-修改hosts" class="headerlink" title="3. 修改hosts"></a>3. 修改hosts</h4><pre class=" language-bash"><code class="language-bash">     <span class="token function">sudo</span> <span class="token function">vi</span> /etc/hosts
+     <span class="token comment" spellcheck="true"># 添加 </span>
      本机ip   crab2died
 </code></pre>
-<h2 id="二-安装Hadoop"><a href="#二-安装Hadoop" class="headerlink" title="二 安装Hadoop"></a>二 安装Hadoop</h2><h3 id="1-解压Hadoop"><a href="#1-解压Hadoop" class="headerlink" title="1. 解压Hadoop"></a>1. 解压Hadoop</h3><pre><code class="bash">     cd ~
-     sudo tar -zxf ~/Downloads/hadoop-2.8.5.tar.gz -C /usr/local # 解压到/usr/local中
-     cd /usr/local/                                              
-     chmod -R 777 ./hadoop-2.8.5                                 # 设置权限
+<h2 id="二-安装Hadoop"><a href="#二-安装Hadoop" class="headerlink" title="二 安装Hadoop"></a>二 安装Hadoop</h2><h3 id="1-解压Hadoop"><a href="#1-解压Hadoop" class="headerlink" title="1. 解压Hadoop"></a>1. 解压Hadoop</h3><pre class=" language-bash"><code class="language-bash">     <span class="token function">cd</span> ~
+     <span class="token function">sudo</span> <span class="token function">tar</span> -zxf ~/Downloads/hadoop-2.8.5.tar.gz -C /usr/local <span class="token comment" spellcheck="true"># 解压到/usr/local中</span>
+     <span class="token function">cd</span> /usr/local/                                              
+     <span class="token function">chmod</span> -R 777 ./hadoop-2.8.5                                 <span class="token comment" spellcheck="true"># 设置权限</span>
 </code></pre>
-<h3 id="2-设置Hadoop环境变量"><a href="#2-设置Hadoop环境变量" class="headerlink" title="2. 设置Hadoop环境变量"></a>2. 设置Hadoop环境变量</h3><pre><code class="bash">     sudo vi /etc/profile
-     # 添加
-     export HADOOP_HOME=/usr/local/hadoop-2.8.5 
-     export PATH=$PATH:${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin
-     # 保存执行
-     source /etc/profile
+<h3 id="2-设置Hadoop环境变量"><a href="#2-设置Hadoop环境变量" class="headerlink" title="2. 设置Hadoop环境变量"></a>2. 设置Hadoop环境变量</h3><pre class=" language-bash"><code class="language-bash">     <span class="token function">sudo</span> <span class="token function">vi</span> /etc/profile
+     <span class="token comment" spellcheck="true"># 添加</span>
+     <span class="token function">export</span> HADOOP_HOME<span class="token operator">=</span>/usr/local/hadoop-2.8.5 
+     <span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$PATH</span><span class="token keyword">:</span><span class="token variable">${HADOOP_HOME}</span>/sbin:<span class="token variable">${HADOOP_HOME}</span>/bin
+     <span class="token comment" spellcheck="true"># 保存执行</span>
+     <span class="token function">source</span> /etc/profile
 </code></pre>
-<h3 id="3-验证Hadoop版本"><a href="#3-验证Hadoop版本" class="headerlink" title="3. 验证Hadoop版本"></a>3. 验证Hadoop版本</h3><pre><code class="bash">     hadoop version    # 成功会返回版本信息
+<h3 id="3-验证Hadoop版本"><a href="#3-验证Hadoop版本" class="headerlink" title="3. 验证Hadoop版本"></a>3. 验证Hadoop版本</h3><pre class=" language-bash"><code class="language-bash">     hadoop version    <span class="token comment" spellcheck="true"># 成功会返回版本信息</span>
 </code></pre>
 <h3 id="4-伪分布式配置"><a href="#4-伪分布式配置" class="headerlink" title="4. 伪分布式配置"></a>4. 伪分布式配置</h3><h4 id="4-1-进入-HADOOP-HOME-etc-hadoop目录中，修改以下文件"><a href="#4-1-进入-HADOOP-HOME-etc-hadoop目录中，修改以下文件" class="headerlink" title="4.1 进入${HADOOP_HOME}/etc/hadoop目录中，修改以下文件"></a>4.1 进入<code>${HADOOP_HOME}/etc/hadoop</code>目录中，修改以下文件</h4><h5 id="4-1-1-修改-hadoop-env-sh"><a href="#4-1-1-修改-hadoop-env-sh" class="headerlink" title="4.1.1 修改 hadoop-env.sh"></a>4.1.1 修改 hadoop-env.sh</h5><pre><code>  将`export JAVA_HOME=${JAVA_HOME}`改成`export JAVA_HOME=/usr/local/jdk1.8.0_181  # JDK根目录`
-</code></pre><h5 id="4-1-2-修改-core-site-xml"><a href="#4-1-2-修改-core-site-xml" class="headerlink" title="4.1.2 修改 core-site.xml"></a>4.1.2 修改 core-site.xml</h5><pre><code class="xml">     &lt;configuration&gt;
-         &lt;property&gt;
-             &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
-             &lt;value&gt;file:/home/crab2died/hadoop/tmp&lt;/value&gt;
-             &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;
-         &lt;/property&gt;
-         &lt;property&gt;
-             &lt;name&gt;fs.defaultFS&lt;/name&gt;
-             &lt;value&gt;hdfs://crab2died:9000&lt;/value&gt;
-         &lt;/property&gt;
-     &lt;/configuration&gt;
+</code></pre><h5 id="4-1-2-修改-core-site-xml"><a href="#4-1-2-修改-core-site-xml" class="headerlink" title="4.1.2 修改 core-site.xml"></a>4.1.2 修改 core-site.xml</h5><pre class=" language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:/home/crab2died/hadoop/tmp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>Abase for other temporary directories.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.defaultFS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://crab2died:9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
 </code></pre>
-<h5 id="4-1-3-修改-hdfs-site-xml"><a href="#4-1-3-修改-hdfs-site-xml" class="headerlink" title="4.1.3 修改 hdfs-site.xml"></a>4.1.3 修改 hdfs-site.xml</h5><pre><code class="xml">     &lt;configuration&gt;
-        &lt;property&gt;
-            &lt;name&gt;dfs.nameservices&lt;/name&gt;
-            &lt;value&gt;hadoop-cluster&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-            &lt;name&gt;dfs.replication&lt;/name&gt;
-            &lt;value&gt;1&lt;/value&gt;
-        &lt;/property&gt;      
-        &lt;property&gt;
-            &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
-            &lt;value&gt;file:/home/crab2died/hadoop/hdfs/nn&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-            &lt;name&gt;dfs.namenode.checkpoint.dir&lt;/name&gt;
-            &lt;value&gt;file:/home/crab2died/hadoop/hdfs/snn&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-            &lt;name&gt;dfs.namenode.checkpoint.edits.dir&lt;/name&gt;
-            &lt;value&gt;file:/home/crab2died/hadoop/hdfs/snn&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-            &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
-            &lt;value&gt;file:/home/crab2died/hadoop/hdfs/dn&lt;/value&gt;
-        &lt;/property&gt;
-     &lt;/configuration&gt;
+<h5 id="4-1-3-修改-hdfs-site-xml"><a href="#4-1-3-修改-hdfs-site-xml" class="headerlink" title="4.1.3 修改 hdfs-site.xml"></a>4.1.3 修改 hdfs-site.xml</h5><pre class=" language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.nameservices<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hadoop-cluster<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.replication<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>      
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.name.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:/home/crab2died/hadoop/hdfs/nn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.checkpoint.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:/home/crab2died/hadoop/hdfs/snn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.checkpoint.edits.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:/home/crab2died/hadoop/hdfs/snn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.datanode.data.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:/home/crab2died/hadoop/hdfs/dn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
 </code></pre>
-<h5 id="4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml"><a href="#4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml" class="headerlink" title="4.1.4 先复制cp mapred-site.xml.template mapred-site.xml,再修改 mapred-site.xml"></a>4.1.4 先复制<code>cp mapred-site.xml.template mapred-site.xml</code>,再修改 mapred-site.xml</h5><pre><code class="xml">     &lt;configuration&gt;
-         &lt;property&gt;
-              &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
-              &lt;value&gt;yarn&lt;/value&gt;
-         &lt;/property&gt;
-     &lt;/configuration&gt;
+<h5 id="4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml"><a href="#4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml" class="headerlink" title="4.1.4 先复制cp mapred-site.xml.template mapred-site.xml,再修改 mapred-site.xml"></a>4.1.4 先复制<code>cp mapred-site.xml.template mapred-site.xml</code>,再修改 mapred-site.xml</h5><pre class=" language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.framework.name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>yarn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
 </code></pre>
-<h5 id="4-1-5-修改-yarn-site-xml"><a href="#4-1-5-修改-yarn-site-xml" class="headerlink" title="4.1.5 修改 yarn-site.xml"></a>4.1.5 修改 yarn-site.xml</h5><pre><code class="xml">     &lt;configuration&gt;
-        &lt;property&gt;
-            &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
-            &lt;value&gt;crab2died&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-            &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
-            &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-            &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;
-            &lt;value&gt;file:/home/crab2died/hadoop/yarn/nm&lt;/value&gt;
-        &lt;/property&gt;
-     &lt;/configuration&gt;
+<h5 id="4-1-5-修改-yarn-site-xml"><a href="#4-1-5-修改-yarn-site-xml" class="headerlink" title="4.1.5 修改 yarn-site.xml"></a>4.1.5 修改 yarn-site.xml</h5><pre class=" language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.hostname<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>crab2died<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.aux-services<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>mapreduce_shuffle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.local-dirs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:/home/crab2died/hadoop/yarn/nm<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
 </code></pre>
-<h3 id="5-格式化HDFS-NameNode"><a href="#5-格式化HDFS-NameNode" class="headerlink" title="5. 格式化HDFS NameNode"></a>5. 格式化HDFS NameNode</h3><pre><code class="bash">     hdfs namenode -format
+<h3 id="5-格式化HDFS-NameNode"><a href="#5-格式化HDFS-NameNode" class="headerlink" title="5. 格式化HDFS NameNode"></a>5. 格式化HDFS NameNode</h3><pre class=" language-bash"><code class="language-bash">     hdfs namenode -format
 </code></pre>
-<h3 id="6-启动集群"><a href="#6-启动集群" class="headerlink" title="6. 启动集群"></a>6. 启动集群</h3><h4 id="6-1-启动HDFS集群"><a href="#6-1-启动HDFS集群" class="headerlink" title="6.1 启动HDFS集群"></a>6.1 启动HDFS集群</h4><pre><code class="bash">     hadoop-daemon.sh start namenode
+<h3 id="6-启动集群"><a href="#6-启动集群" class="headerlink" title="6. 启动集群"></a>6. 启动集群</h3><h4 id="6-1-启动HDFS集群"><a href="#6-1-启动HDFS集群" class="headerlink" title="6.1 启动HDFS集群"></a>6.1 启动HDFS集群</h4><pre class=" language-bash"><code class="language-bash">     hadoop-daemon.sh start namenode
      hadoop-daemon.sh start datanode
-     hadoop-daemon.sh start secondarynamenode  # 伪分布式才有
+     hadoop-daemon.sh start secondarynamenode  <span class="token comment" spellcheck="true"># 伪分布式才有</span>
 </code></pre>
-<h4 id="6-2-启动YARN"><a href="#6-2-启动YARN" class="headerlink" title="6.2 启动YARN"></a>6.2 启动YARN</h4><pre><code class="bash">     yarn-daemon.sh start resourcemanager
+<h4 id="6-2-启动YARN"><a href="#6-2-启动YARN" class="headerlink" title="6.2 启动YARN"></a>6.2 启动YARN</h4><pre class=" language-bash"><code class="language-bash">     yarn-daemon.sh start resourcemanager
      yarn-daemon.sh start nodemanager
 </code></pre>
-<h3 id="7-jps查看进程"><a href="#7-jps查看进程" class="headerlink" title="7. jps查看进程"></a>7. jps查看进程</h3><pre><code class="bash">     jps
+<h3 id="7-jps查看进程"><a href="#7-jps查看进程" class="headerlink" title="7. jps查看进程"></a>7. jps查看进程</h3><pre class=" language-bash"><code class="language-bash">     jps
      1213 NameNOde
      1261 NodeManager
      1521 ResourceManager
@@ -793,9 +793,9 @@
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">一. 依赖（这里只列举了websocket相关依赖）    &lt;!-- spring webSocket依赖 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.spring</div>
+                    <div class="summary">一. 依赖（这里只列举了websocket相关依赖）    &lt;!-- spring webSocket依赖 -->
+    &lt;dependency>
+        &lt;groupId>org.springframework</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-08-27
@@ -843,7 +843,7 @@
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            Copyright &copy;2018 Dsolvers
+            Copyright &copy;2017 - 2018 Crab2Died. All Rights Reserved.
         </div>
         <div class="col s12 m4 l4 social-link"><a href="https://github.com/Crab2Died" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
     <i class="fa fa-github"></i>
@@ -851,7 +851,7 @@
 <a href="mailto:Crab2Died@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
     <i class="fa fa-envelope-open"></i>
 </a>
-<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">-->
+<!--<a href="#!" class="tooltipped" data-tooltip="QQ联系我: " data-position="top" data-delay="50">-->
     <!--<i class="fa fa-qq"></i>-->
 <!--</a>-->
 
