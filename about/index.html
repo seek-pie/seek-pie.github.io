@@ -26,6 +26,16 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?4e3c395cdc534ee945d4e8f65ecd911d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 
 </head>
@@ -480,7 +490,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Interview","value":1},{"name":"Java","value":7},{"name":"Database","value":1},{"name":"Big Data","value":2},{"name":"Cache","value":1},{"name":"HTTP","value":1}],
+                data: [{"name":"Database","value":1},{"name":"Interview","value":1},{"name":"Java","value":7},{"name":"Big Data","value":2},{"name":"Cache","value":1},{"name":"HTTP","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -504,7 +514,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         xAxis: [
             {
                 type: 'category',
-                data: ["Java","Big Data","Experience","Collection","Database","Classloader","Concurrent","JIT","Optimize","Interview"]
+                data: ["Java","Big Data","GC","Experience","Classloader","Collection","JIT","Optimize","Concurrent","Database"]
             }
         ],
         yAxis: [
@@ -672,6 +682,12 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         <div class="tag-chips center-align">
             
             
+            <a href="../tags/Database/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">Database</span>
+            </a>
+            
+            
+            
             
             
             <a href="../tags/Interview/" target="_blank">
@@ -686,26 +702,14 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             
             
-            <a href="../tags/Collection/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">Collection</span>
-            </a>
-            
-            
-            
-            <a href="../tags/Database/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">Database</span>
-            </a>
-            
-            
-            
             <a href="../tags/Classloader/" target="_blank">
                 <span class="chip center-align waves-effect waves-light chip-default">Classloader</span>
             </a>
             
             
             
-            <a href="../tags/Concurrent/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">Concurrent</span>
+            <a href="../tags/Collection/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">Collection</span>
             </a>
             
             
@@ -722,14 +726,20 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             
             
-            <a href="../tags/JMM/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">JMM</span>
+            <a href="../tags/Concurrent/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">Concurrent</span>
             </a>
             
             
             
             <a href="../tags/GC/" target="_blank">
                 <span class="chip center-align waves-effect waves-light chip-default">GC</span>
+            </a>
+            
+            
+            
+            <a href="../tags/JMM/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">JMM</span>
             </a>
             
             
@@ -742,14 +752,14 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             
             
-            <a href="../tags/HBase/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">HBase</span>
+            <a href="../tags/Hadoop/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">Hadoop</span>
             </a>
             
             
             
-            <a href="../tags/Hadoop/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">Hadoop</span>
+            <a href="../tags/HBase/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">HBase</span>
             </a>
             
             
