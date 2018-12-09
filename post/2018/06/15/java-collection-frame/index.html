@@ -664,22 +664,23 @@ ArrayList是基于数组">
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="../../17/java-compile-and-optimize/">
+                <a href="../java-gc/">
                     <div class="card-image">
                         
-                        <img src="/images/material/gaoxiao.png" class="responsive-img" alt="Java Compile and Optimize">
+                        <img src="/images/java/java_01.jpg" class="responsive-img" alt="Java GC">
                         
-                        <span class="card-title">Java Compile and Optimize</span>
+                        <span class="card-title">Java GC</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">1. 早期(编译期)优化1-1. 概论
-前端编译器:Sun的Javac、 Eclipse JDT中的增量式编译器(ECJ)
-JIT编译器:HotSpot VM的C1、 C2编译器
-AOT编译器:GNU Compiler for the Ja</div>
+                    <div class="summary">一. Java虚拟机内存区域1. 运行时数据区   
+2. 程序计数器(Program Counter Register)
+1、程序计数器是线程内(每个线程都有唯一的、封闭的)一小块内存区域
+2、计数器指定的是当前虚拟机执行指令的地址
+3、</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-17
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-15
                         </span>
                         <span class="publish-author">
                             
@@ -700,12 +701,8 @@ AOT编译器:GNU Compiler for the Ja</div>
                         <span class="chip bg-color">Java</span>
                     </a>
                     
-                    <a href="../../../../../tags/JIT/" target="_blank">
-                        <span class="chip bg-color">JIT</span>
-                    </a>
-                    
-                    <a href="../../../../../tags/Optimize/" target="_blank">
-                        <span class="chip bg-color">Optimize</span>
+                    <a href="../../../../../tags/GC/" target="_blank">
+                        <span class="chip bg-color">GC</span>
                     </a>
                     
                 </div>
@@ -717,20 +714,20 @@ AOT编译器:GNU Compiler for the Ja</div>
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="../java-gc/">
+                <a href="../java-concurrent/">
                     <div class="card-image">
                         
-                        <img src="/images/java/java_01.jpg" class="responsive-img" alt="Java GC">
+                        <img src="/images/material/maoxian.png" class="responsive-img" alt="Java Concurrent">
                         
-                        <span class="card-title">Java GC</span>
+                        <span class="card-title">Java Concurrent</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">一. Java虚拟机内存区域1. 运行时数据区   
-2. 程序计数器(Program Counter Register)
-1、程序计数器是线程内(每个线程都有唯一的、封闭的)一小块内存区域
-2、计数器指定的是当前虚拟机执行指令的地址
-3、</div>
+                    <div class="summary">1. JAVA与线程1.1 线程的实现
+实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.
+JDK1.2之前是基于用户线程实现的，JDK1.2及以后是基于操作系统原生线程模型实现的.
+
+1.2 Java线程调</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-15
@@ -754,8 +751,8 @@ AOT编译器:GNU Compiler for the Ja</div>
                         <span class="chip bg-color">Java</span>
                     </a>
                     
-                    <a href="../../../../../tags/GC/" target="_blank">
-                        <span class="chip bg-color">GC</span>
+                    <a href="../../../../../tags/Concurrent/" target="_blank">
+                        <span class="chip bg-color">Concurrent</span>
                     </a>
                     
                 </div>

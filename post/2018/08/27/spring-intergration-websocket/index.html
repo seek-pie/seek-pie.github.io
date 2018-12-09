@@ -5,11 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Java Compile and Optimize, Crab2Died dsolvers github Excel4J blog 螃蟹以死">
-    <meta name="description" content="1. 早期(编译期)优化1-1. 概论
-前端编译器:Sun的Javac、 Eclipse JDT中的增量式编译器(ECJ)
-JIT编译器:HotSpot VM的C1、 C2编译器
-AOT编译器:GNU Compiler for the Ja">
+    <meta name="keywords" content="Spring Integration Websocket, Crab2Died dsolvers github Excel4J blog 螃蟹以死">
+    <meta name="description" content="一. 依赖（这里只列举了websocket相关依赖）    &amp;lt;!-- spring webSocket依赖 --&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.spring">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +16,7 @@ AOT编译器:GNU Compiler for the Ja">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Java Compile and Optimize | 螃蟹以死</title>
+    <title>Spring Integration Websocket | 螃蟹以死</title>
     <link rel="icon" type="image/png" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -277,13 +276,13 @@ AOT编译器:GNU Compiler for the Ja">
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/images/material/gaoxiao.png')">
+<div class="bg-cover post-cover" style="background-image: url('/images/net/web.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Java Compile and Optimize
+                        Spring Integration Websocket
                     </div>
                 </div>
             </div>
@@ -307,12 +306,12 @@ AOT编译器:GNU Compiler for the Ja">
                     <span class="chip bg-color">Java</span>
                 </a>
                 
-                <a href="../../../../../tags/JIT/" target="_blank">
-                    <span class="chip bg-color">JIT</span>
+                <a href="../../../../../tags/Spring/" target="_blank">
+                    <span class="chip bg-color">Spring</span>
                 </a>
                 
-                <a href="../../../../../tags/Optimize/" target="_blank">
-                    <span class="chip bg-color">Optimize</span>
+                <a href="../../../../../tags/Websocket/" target="_blank">
+                    <span class="chip bg-color">Websocket</span>
                 </a>
                 
             </div>
@@ -322,138 +321,419 @@ AOT编译器:GNU Compiler for the Ja">
                 <span class="post-cate">
                     <i class="fa fa-bookmark fa-fw icon-category"></i>
                     
-                    <a href="../../../../../categories/Java/" class="post-category" target="_blank">
-                        Java
+                    <a href="../../../../../categories/Websocket/" class="post-category" target="_blank">
+                        Websocket
                     </a>
                     
                 </span>
                 
 
                 <span class="post-date">
-                    <i class="fa fa-clock-o fa-fw"></i>2018-06-17
+                    <i class="fa fa-clock-o fa-fw"></i>2018-08-27
                 </span>
             </div>
         </div>
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-早期-编译期-优化"><a href="#1-早期-编译期-优化" class="headerlink" title="1. 早期(编译期)优化"></a>1. 早期(编译期)优化</h2><h3 id="1-1-概论"><a href="#1-1-概论" class="headerlink" title="1-1. 概论"></a>1-1. 概论</h3><ol>
-<li>前端编译器:Sun的Javac、 Eclipse JDT中的增量式编译器(ECJ)<ul>
-<li>JIT编译器:HotSpot VM的C1、 C2编译器</li>
-<li>AOT编译器:GNU Compiler for the Java(GCJ)、 Excelsior JET</li>
-</ul>
-</li>
-<li>javac这类编译器几乎不对代码进行性能优化,把性能优化放到了JIT即时编译器内,可为JRuby、Groovy这类语言的代码也同等享有优化带来的好处</li>
-</ol>
-<h3 id="1-2-javac编译"><a href="#1-2-javac编译" class="headerlink" title="1-2. javac编译"></a>1-2. javac编译</h3><h4 id="1-2-1-编译过程"><a href="#1-2-1-编译过程" class="headerlink" title="1-2.1. 编译过程"></a>1-2.1. 编译过程</h4><ol>
-<li>解析与填充符号表过程  </li>
-</ol>
-<ul>
-<li>词法、语法分析<ul>
-<li>词法分析是将源代码的字符流转变为标记(Token)集合,单个字符是程序编写过程的最小元素,而标记则是编译过程的最小元素,关键字、 变量名、 字面量、 运算符都可以成为标记</li>
-<li>语法分析是根据Token序列构造抽象语法树的过程,抽象语法树(Abstract Syntax Tree,AST)是一种用来描述程序代码语法结构的树形表示方式,语法树的每一个节点都代表着程序<br>代码中的一个语法结构(Construct),例如包、 类型、 修饰符、 运算符、 接口、 返回值甚至代码注释等都可以是一个语法结构.</li>
-</ul>
-</li>
-<li>填充符号表<ul>
-<li>符号表(Symbol Table)是由一组符号地址和符号信息构成的表格</li>
-<li>在语义分析中,符号表所登记的内容将用于语义检查(如检查一个名字的使用和原先的说明是否一致)和产生中间代码.在目标代码生成阶段,当对符号名进行地址分配时,符号表是地址分配的依据.</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>插入式注解处理器的注解处理过程</li>
-<li>分析与字节码生成过程</li>
-</ol>
-<ul>
-<li>标注检查<ul>
-<li>检查的内容包括诸如变量使用前是否已被声明、 变量与赋值之间的数据类型是否能够匹配等</li>
-<li>常量折叠 如定义了<code>int a = 1 + 2</code>会被编译为<code>int a = 3</code></li>
-</ul>
-</li>
-<li>数据及控制流分析<ul>
-<li>数据及控制流分析是对程序上下文逻辑更进一步的验证,它可以检查出诸如程序局部变量在使用前是否有赋值、<br>方法的每条路径是否都有返回值、 是否所有的受查异常都被正确处理了等问题.</li>
-</ul>
-</li>
-<li>语法糖<ul>
-<li>语法糖:也称糖衣语法,是由英国计算机科学家彼得·约翰·兰达(Peter J.Landin)发明的一个术语,<br>指在计算机语言中添加的某种语法,这种语法对语言的功能并没有影响,但是更方便程序员使用.<br>通常来说,使用语法糖能够增加程序的可读性,从而减少程序代码出错的机会.</li>
-<li>java语法糖:泛型、变长参数、 自动装箱/拆箱等 内部类、 枚举类、 断言语句、 对枚举和字符串(在JDK 1.7中支持)<br>的switch支持、 try语句中定义和关闭资源(在JDK 1.7中支持)等</li>
-<li>泛型:编译器会进行解泛,所以泛型不能进行方法重载</li>
-<li>自动装箱、 拆箱与遍历循环</li>
-<li>条件编译 if 的条件为常量时编译期会被执行</li>
-</ul>
-</li>
-<li>字节码生成<ul>
-<li>字节码生成阶段不仅仅是把前面各个步骤所生成的信息(语法树、 符号表)转化成字节码写到磁盘中,<br>编译器还进行了少量的代码添加和转换工作.</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-晚期-运行期-优化"><a href="#2-晚期-运行期-优化" class="headerlink" title="2. 晚期(运行期)优化"></a>2. 晚期(运行期)优化</h2><h3 id="2-1-即时编译器-JIT"><a href="#2-1-即时编译器-JIT" class="headerlink" title="2-1. 即时编译器(JIT)"></a>2-1. 即时编译器(JIT)</h3><ol>
-<li>为了提高热点代码的执行效率,在运行时,虚拟机将会把这些代码编译成与本地平台相关的机器码,并进行各种层次的优化,<br>完成这个任务的编译器称为即时编译器(Just In Time Compiler)</li>
-<li>解释器与编译器(sun HotSpot虚拟机为例)</li>
-</ol>
-<ul>
-<li>交互模型<pre><code>        +---------------即时编译-----------↓
-        ↓                         Client Compiler(C1编译器)
-     解释器(Interpreter)               编译器
-        ↑                         Server Compiler(C2编译器)
-        +----------------逆优化------------↑
-</code></pre></li>
-<li>HotSpot虚拟机同时由解释器与编译器搭配使用(成为混合模式(Mixed Model)),<br>可添加参数-Xint强制虚拟机使用解释模式(Interpreted Mode),可添加参数<code>-Xcomp</code>强制虚拟机使用编译模式(Compiled Mode)</li>
-<li>启动参数<code>-client</code>启用Client Compiler编译器 参数<code>-server</code>启用Server Compiler编译器</li>
-<li>HotSpot虚拟机还会逐渐启用分层编译(Tiered Compilation)的策略,分层编译的概念在JDK 1.6时期出现,<br>JDK1.7中Server模式中默认开启,之前需配参数<code>-XX:+TieredCompilation</code>启用</li>
-</ul>
-<ol start="3">
-<li>编译对象与触发条件</li>
-</ol>
-<ul>
-<li>触发条件<ul>
-<li>被多次调用的方法</li>
-<li>被多次执行的循环体,这个称为栈上替换(On Stack Replacement,简称为OSR编译)</li>
-</ul>
-</li>
-<li>热点代码判定<ul>
-<li>基于采样的热点探测,周期性检测个线程的栈顶,若某个方法经常在栈顶,则认为是热点方法；<br>优点是实现简单简单,高效,容易获取方法调用关系,缺点是不能准确判定一个方法的热度</li>
-<li>基于计数器的热点探测,虚拟机为每个方法设定计数器,统计方法执行次数,若超过一定阈值则认为是热点方法；<br>优点是能准确判定一个方法的热度,缺点是要为每个方法建立计数器并维护,实现麻烦,也不能获取方法的调用关系</li>
-</ul>
-</li>
-<li>HotSpot虚拟机是基于计数器的热点探测,有2个计数器:方法调用计数器(Invocation Counter)和回边计数器(Back Edge Counter)<ul>
-<li>方法调用计数器,Client模式下阈值为1500次,Server模式下阈值为1000次,可由参数<code>-XX:CompileThreshold</code>来设置<br><code>-XX:-UseCounterDecay</code>设置关闭热度衰减,<code>-XX:CounterHalfLifeTime</code>参数设置半衰周期的时间,单位是秒</li>
-<li>回边计数器,参数<code>-XX:OnStackReplacePercentage</code>来间接调整回边计数器的阈值<br>Client模式下阈值计算公式:<br><code>方法调用计数器阈值(CompileThreshold)×OSR比率(OnStackReplacePercentage)[默认值为933]/100</code> 默认情况下为13995<br>Server模式下阈值计算公式:<br><code>方法调用计数器阈值(CompileThreshold)×(OSR比率(OnStackReplacePercentage)[默认值140]-解释器监控比率(InterpreterProfilePercentage)[默认值33]/100</code><br>默认情况下为10700</li>
-</ul>
-</li>
-</ul>
-<ol start="4">
-<li>编译过程<ul>
-<li>Client模式下编译过程<br><img src="https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/optimize/Client-Compiler%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.png" alt="Client Compiler编译过程"></li>
-<li>Server模式下编译过程<br>相当复杂</li>
-</ul>
-</li>
-<li>优化技术</li>
-</ol>
-<ul>
-<li>公共子表达式消除<ul>
-<li>经典优化技术,如果一个表达式E已经计算过了,并且从先前的计算到现在E中所有变量的值都没有发生变化,那么E的这次出现就成为了公共子表达式.<br>对于这种表达式,没有必要花时间再对它进行计算,只需要直接用前面计算过的表达式结果代替E就可以了</li>
-</ul>
-</li>
-<li>数组边界检查消除<ul>
-<li>语言相关的其他消除操作还有不少,如自动装箱消除(Autobox Elimination)、 安全点消除(Safepoint Elimination)、消除反射(Dereflection)等</li>
-</ul>
-</li>
-<li>方法内联<ul>
-<li>虚拟机最重要的优化手段之一,除了消除方法调用的成本之外,它更重要的意义是为其他优化手段建立良好的基础</li>
-<li>非虚方法直接内联,虚方法引入了一种名为“类型继承关系分析”(Class Hierarchy Analysis,CHA)的技术,<br>检查发现没有多个目标版本可供选择,则也可内联,但需准备一个逃生门,即使有多个版本目标也会默认内联,但在调用时要检查,<br>发现版本目标不一致在取消内联,会从“逃生门”回到解释状态重新执行</li>
-</ul>
-</li>
-<li>逃逸分析(JDK1.6)<ul>
-<li>当下java最前沿的优化技术</li>
-<li>逃逸分析的基本行为就是分析对象动态作用域:当一个对象在方法中被定义后,它可能被外部方法所引用,<br>例如作为调用参数传递到其他方法中,称为方法逃逸. 甚至还有可能被外部线程访问到,<br>譬如赋值给类变量或可以在其他线程中访问的实例变量,称为线程逃逸.</li>
-<li>栈上分配(Stack Allocation),如果证明一个对象不会逃逸到方法之外,则可以将对象分配到方法栈帧内存,这样随着栈帧出栈而销毁,极大地降低了GC系统压力</li>
-<li>同步消除(Synchronization Elimination),如果能证明一个变量不会逃逸出线程,那就可以消除掉同步措施,消除同步带来的消耗</li>
-<li>标量替换(Scalar Replacement)<br>标量(Scalar),是指一个数据已经无法再分解成更小的数据来表示了,如:<code>int</code>,<code>long</code>,<code>double</code>等<br>聚合量(Aggregate),是指一个数据可以被分解,典型的java对象<br>如果证明一个对象不被外界访问,又可拆散的话,那程序在调用的时候就不创建该变量,改为创建多个成员变量来代替,<br>将对象拆分后,除了可以让对象的成员变量在栈上(栈上存储的数据,有很大的概率会被虚拟机分配至物理机器的高速寄存器中存储)<br>分配和读写之外,还可以为后续进一步的优化手段创建条件</li>
-<li>逃逸分析尚不成熟</li>
-</ul>
-</li>
-</ul>
+                <h1 id="一-依赖（这里只列举了websocket相关依赖）"><a href="#一-依赖（这里只列举了websocket相关依赖）" class="headerlink" title="一. 依赖（这里只列举了websocket相关依赖）"></a>一. 依赖（这里只列举了websocket相关依赖）</h1><pre><code class="xml">    &lt;!-- spring webSocket依赖 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-websocket&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-messaging --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-messaging&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.websocket&lt;/groupId&gt;
+        &lt;artifactId&gt;javax.websocket-api&lt;/artifactId&gt;
+        &lt;version&gt;1.1&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- websocket客户端 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.glassfish.tyrus.bundles&lt;/groupId&gt;
+        &lt;artifactId&gt;tyrus-standalone-client&lt;/artifactId&gt;
+        &lt;version&gt;1.13&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre>
+<h1 id="二-WebSocket服务端"><a href="#二-WebSocket服务端" class="headerlink" title="二. WebSocket服务端"></a>二. WebSocket服务端</h1><h4 id="2-1-核心代码"><a href="#2-1-核心代码" class="headerlink" title="2-1. 核心代码"></a>2-1. 核心代码</h4><pre><code class="java">package com.github.websocket.server;
+
+import com.alibaba.fastjson.JSON;
+import com.github.CommonConstant;
+import com.github.session.SObject;
+import com.github.websocket.configuration.HttpSessionConfigurator;
+import com.github.websocket.msg.Msg;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import javax.servlet.http.HttpSession;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+/**
+ * @author : Crab2Died&lt;/br&gt;
+ * @DESC : &lt;p&gt;注解{@link ServerEndpoint}声明websocket 服务端&lt;/p&gt;&lt;/br&gt;
+ * @date : 2017/5/25  9:43&lt;/br&gt;
+ */
+@ServerEndpoint(value = &quot;/chat&quot;, configurator = HttpSessionConfigurator.class)
+public class WSServer {
+
+    static private Logger logger = Logger.getLogger(WSServer.class);
+
+    // 在线人数 线程安全
+    private static int onlineCount = 0;
+
+    // 连接集合 userId =&gt; server 键值对 线程安全
+    static public final ConcurrentMap&lt;String, WSServer&gt; map = new ConcurrentHashMap&lt;&gt;();
+
+    // 与某个客户端的连接会话，需要通过它来给客户端发送数据
+    private Session session;
+
+    // 当前会话的httpsession
+    private HttpSession httpSession;
+
+
+    /**
+     * @param session websocket连接sesson
+     * @param config  {@link com.github.websocket.configuration.HttpSessionConfigurator}
+     * @DESC &lt;p&gt;注解{@link OnOpen} 声明客户端连接进入的方法&lt;/p&gt;
+     */
+    @OnOpen
+    public void onOpen(Session session, EndpointConfig config) {
+
+        // 得到httpSession
+        this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+
+        // 获取session对象 SObject(这个就是java web登入后的保存的session对象，此处为用户信息，包含了userId)
+        SObject user = (SObject) this.httpSession.getAttribute(CommonConstant.USER_LOGIN_SESSION);
+
+        this.session = session;
+
+        // 将连接session对象存入map
+        map.put(user.getUid(), this);
+
+        // 连接数+1
+        addOnlineCount();
+
+        logger.info(&quot;有新的连接，当前连接数为：&quot; + getOnlineCount());
+    }
+
+
+    /**
+     * &lt;p&gt;{@link OnClose} 关闭连接&lt;/p&gt;
+     */
+    @OnClose
+    public void onClose() {
+
+        /**
+         * 获取当前连接信息 {@code CommonConstant.USER_LOGIN_SESSION} 为Http session 名
+         */
+
+        SObject user = (SObject) this.httpSession.getAttribute(CommonConstant.USER_LOGIN_SESSION);
+
+        // 移除连接
+        map.remove(user.getUid());
+
+        // 连接数-1
+        subOnlineCount();
+
+        logger.info(&quot;有一连接断开，当前连接数为：&quot; + getOnlineCount());
+    }
+
+    /**
+     * &lt;p&gt;{@link OnMessage} 消息监听处理方法&lt;/p&gt;
+     *
+     * @param message 消息对象{@link com.github.websocket.msg.Msg}的JSON对象
+     * @throws IOException 异常
+     */
+    @OnMessage
+    public void onMessage(String message) throws IOException {
+
+        // 将消息转Msg对象
+        Msg msg = JSON.parseObject(message, Msg.class);
+
+        //TODO 可以对msg做些处理...
+
+        // 根据Msg消息对象获取定点发送人的userId
+        WSServer _client = map.get(msg.getToUid());
+
+        // 定点发送
+        if (StringUtils.isNotEmpty(msg.getToUid())) {
+            if (null != _client) {
+                // 是否连接判断
+                if (_client.session.isOpen())
+                    // 消息发送
+                    _client.session.getBasicRemote().sendText(JSON.toJSONString(msg));
+            }
+        }
+
+        // 群发
+        if (StringUtils.isEmpty(msg.getToUid())) {
+            // 群发已连接用户
+            for (WSServer client : map.values()) {
+                client.session.getBasicRemote().sendText(JSON.toJSONString(msg));
+            }
+        }
+
+    }
+
+    /**
+     * &lt;p&gt;{@link OnError} websocket系统异常处理&lt;/p&gt;
+     *
+     * @param t 异常
+     */
+    @OnError
+    public void onError(Throwable t) {
+        logger.error(t);
+        t.printStackTrace();
+    }
+
+    /**
+     * &lt;p&gt;系统主动推送 这是个静态方法在web启动后可在程序的其他合适的地方和时间调用，这就实现了系统的主动推送&lt;/p&gt;
+     *
+     * @param msg 消息对象{@link com.github.websocket.msg.Msg}的JSON对象
+     */
+    static
+    public void pushBySys(Msg msg) {
+
+        //TODO 也可以实现定点推送
+
+        // 群发
+        for (WSServer client : map.values()) {
+            try {
+                client.session.getBasicRemote().sendText(JSON.toJSONString(msg));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // 获取连接数
+    private static synchronized int getOnlineCount() {
+        return WSServer.onlineCount;
+    }
+
+    // 增加连接数
+    private static synchronized void addOnlineCount() {
+        WSServer.onlineCount++;
+    }
+
+    // 减少连接数
+    private static synchronized void subOnlineCount() {
+        WSServer.onlineCount--;
+    }
+
+}
+
+</code></pre>
+<h4 id="2-2-HttpSessionConfigurator类"><a href="#2-2-HttpSessionConfigurator类" class="headerlink" title="2-2. HttpSessionConfigurator类"></a>2-2. HttpSessionConfigurator类</h4><pre><code class="java">package com.github.websocket.configuration;
+
+import javax.servlet.http.HttpSession;
+import javax.websocket.HandshakeResponse;
+import javax.websocket.server.HandshakeRequest;
+import javax.websocket.server.ServerEndpointConfig;
+import javax.websocket.server.ServerEndpointConfig.Configurator;
+
+/**
+ * @author : Crab2Died&lt;/br&gt;
+ * @DESC : &lt;p&gt;讲http request的session 存入websocket的session内&lt;/p&gt;&lt;/br&gt;
+ * @date : 2017/5/25  16:08&lt;/br&gt;
+ */
+public class HttpSessionConfigurator extends Configurator {
+
+    @Override
+    public void modifyHandshake(ServerEndpointConfig sec,
+                                HandshakeRequest request, HandshakeResponse response) {
+
+        // 获取当前Http连接的session
+        HttpSession httpSession = (HttpSession) request.getHttpSession();
+        // 将http session信息注入websocket session
+        sec.getUserProperties().put(HttpSession.class.getName(), httpSession);
+    }
+}
+
+</code></pre>
+<h4 id="2-3-Msg消息体"><a href="#2-3-Msg消息体" class="headerlink" title="2-3. Msg消息体"></a>2-3. Msg消息体</h4><pre><code class="java">package com.github.websocket.msg;
+
+
+import java.util.Date;
+
+
+/**
+ * @author : Crab2Died&lt;/br&gt;
+ * @DESC : &lt;p&gt;WebSocket消息模型&lt;/p&gt;&lt;/br&gt;
+ * @date : 2017/5/25  9:43&lt;/br&gt;
+ */
+public class Msg {
+
+    // 推送人ID
+    private String fromUid;
+
+    // 定点推送人ID
+    private String toUid;
+
+    // 定点推送单位ID
+    private String toOrgId;
+
+    // 消息体
+    private String data;
+
+    // 推送时间
+    private Date createDate = new Date();
+
+    // 消息状态
+    private Integer flag;
+
+    public Msg() {
+
+    }
+
+    public Msg(String fromUid, String toUid, String toOrgId, String data, Date createDate, Integer flag) {
+        this.fromUid = fromUid;
+        this.toUid = toUid;
+        this.toOrgId = toOrgId;
+        this.data = data;
+        this.createDate = createDate;
+        this.flag = flag;
+    }
+
+    public String getFromUid() {
+        return fromUid;
+    }
+
+    public void setFromUid(String fromUid) {
+        this.fromUid = fromUid;
+    }
+
+    public String getToUid() {
+        return toUid;
+    }
+
+    public void setToUid(String toUid) {
+        this.toUid = toUid;
+    }
+
+    public String getToOrgId() {
+        return toOrgId;
+    }
+
+    public void setToOrgId(String toOrgId) {
+        this.toOrgId = toOrgId;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Msg{&quot; +
+                &quot;fromUid=&#39;&quot; + fromUid + &#39;\&#39;&#39; +
+                &quot;, toUid=&#39;&quot; + toUid + &#39;\&#39;&#39; +
+                &quot;, toOrgId=&#39;&quot; + toOrgId + &#39;\&#39;&#39; +
+                &quot;, data=&#39;&quot; + data + &#39;\&#39;&#39; +
+                &quot;, createDate=&quot; + createDate +
+                &quot;, flag=&quot; + flag +
+                &#39;}&#39;;
+    }
+}
+
+</code></pre>
+<h1 id="三-客户端（HTML5）"><a href="#三-客户端（HTML5）" class="headerlink" title="三. 客户端（HTML5）"></a>三. 客户端（HTML5）</h1><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;WebSocket&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+
+    // 创建websocket实例
+    var ws = new WebSocket(&quot;ws://localhost:8080/chat&quot;);
+    /*
+     *监听三种状态的变化js会回调
+     */
+    ws.onopen = function(message) {
+        // 连接回调
+    };
+    ws.onclose = function(message) {
+        // 断开连接回调
+    };
+    ws.onmessage = function(message) {
+        // 消息监听
+        showMessage(message.data);
+    };
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function() {
+        ws.close();
+    };
+    //关闭连接
+    function closeWebSocket() {
+        ws.close();
+    }
+    //发送消息
+    function send() {
+
+        var input = document.getElementById(&quot;msg&quot;);
+        var text = input.value;
+
+        // 消息体JSON 对象 对应JAVA 的 Msg对象
+        var data = {
+            // 定点发送给其他用户的userId
+            toUid : &quot;3d535429-5fcb-4490-bcf7-96fd84bb17b6&quot;,
+            data : text
+        }
+
+        ws.send(JSON.stringify(data));
+        input.value = &quot;&quot;;
+    }
+    function showMessage(message) {
+        var text = document.createTextNode(JSON.parse(message).data);
+        var br = document.createElement(&quot;br&quot;)
+        var div = document.getElementById(&quot;showChatMessage&quot;);
+        div.appendChild(text);
+        div.appendChild(br);
+    }
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        style=&quot;width: 600px; height: 240px; overflow-y: auto; border: 1px solid #333;&quot;
+        id=&quot;show&quot;&gt;
+        &lt;div id=&quot;showChatMessage&quot;&gt;&lt;/div&gt;
+        &lt;input type=&quot;text&quot; size=&quot;80&quot; id=&quot;msg&quot; name=&quot;msg&quot; placeholder=&quot;输入聊天内容&quot; /&gt;
+        &lt;input type=&quot;button&quot; value=&quot;发送&quot; id=&quot;sendBn&quot; name=&quot;sendBn&quot; onclick=&quot;send()&quot;&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
             </div>
             <hr>
@@ -475,7 +755,7 @@ AOT编译器:GNU Compiler for the Ja">
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="https://dsolvers.github.io" class="b-link-green">螃蟹以死</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="" class="b-link-green">Java Compile and Optimize</a>
+                    <a href="" class="b-link-green">Spring Integration Websocket</a>
                 </p>
             </div>
         </div>
@@ -758,28 +1038,26 @@ AOT编译器:GNU Compiler for the Ja">
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">上一篇</div>
             <div class="card">
-                <a href="../../18/database/">
+                <a href="../../../10/26/pseudo-distributed-hadoop-install/">
                     <div class="card-image">
                         
-                        <img src="/images/db/mysql_logo.png" class="responsive-img" alt="Database">
+                        <img src="/images/hadoop/hadoop_logo_01.png" class="responsive-img" alt="Pseudo Distributed Hadoop Install">
                         
-                        <span class="card-title">Database</span>
+                        <span class="card-title">Pseudo Distributed Hadoop Install</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">一. 四大特性(CIAD)
-原子性(Atomicity): 要么全成功，要么全失败，失败会回滚。
-一致性(Consistency): 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须</div>
+                    <div class="summary">一 环境准备准备Ubuntu、JDK8、Hadoop2.8.5   安装Ubuntu https://www.ubuntu.com/download/desktop   安装JDK,修改环境变量 https://www.oracle.com</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-18
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-26
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../../categories/Database/" class="post-category" target="_blank">
-                                    Database
+                            <a href="../../../../../categories/Big-Data/" class="post-category" target="_blank">
+                                    Big Data
                                 </a>
                             
                             
@@ -789,8 +1067,12 @@ AOT编译器:GNU Compiler for the Ja">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../../tags/Database/" target="_blank">
-                        <span class="chip bg-color">Database</span>
+                    <a href="../../../../../tags/Big-Data/" target="_blank">
+                        <span class="chip bg-color">Big Data</span>
+                    </a>
+                    
+                    <a href="../../../../../tags/Hadoop/" target="_blank">
+                        <span class="chip bg-color">Hadoop</span>
                     </a>
                     
                 </div>
@@ -802,30 +1084,30 @@ AOT编译器:GNU Compiler for the Ja">
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="../../15/java-gc/">
+                <a href="../../../06/27/restful-http/">
                     <div class="card-image">
                         
-                        <img src="/images/java/java_01.jpg" class="responsive-img" alt="Java GC">
+                        <img src="/images/net/restful_api.jpeg" class="responsive-img" alt="RESTful HTTP">
                         
-                        <span class="card-title">Java GC</span>
+                        <span class="card-title">RESTful HTTP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">一. Java虚拟机内存区域1. 运行时数据区   
-2. 程序计数器(Program Counter Register)
-1、程序计数器是线程内(每个线程都有唯一的、封闭的)一小块内存区域
-2、计数器指定的是当前虚拟机执行指令的地址
-3、</div>
+                    <div class="summary">一 REST由来
+REST(Representational State Transfer 表征性状态转移)
+2000年Roy Fielding的博士论文中首次提出
+REST是架构风格，是设计思想，不是标准也不是协议
+REST强调组件交互的</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-15
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-27
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../../categories/Java/" class="post-category" target="_blank">
-                                    Java
+                            <a href="../../../../../categories/HTTP/" class="post-category" target="_blank">
+                                    HTTP
                                 </a>
                             
                             
@@ -835,12 +1117,12 @@ AOT编译器:GNU Compiler for the Ja">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../../tags/Java/" target="_blank">
-                        <span class="chip bg-color">Java</span>
+                    <a href="../../../../../tags/REST/" target="_blank">
+                        <span class="chip bg-color">REST</span>
                     </a>
                     
-                    <a href="../../../../../tags/GC/" target="_blank">
-                        <span class="chip bg-color">GC</span>
+                    <a href="../../../../../tags/HTTP/" target="_blank">
+                        <span class="chip bg-color">HTTP</span>
                     </a>
                     
                 </div>

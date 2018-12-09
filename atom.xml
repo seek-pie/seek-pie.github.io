@@ -73,6 +73,36 @@
   </entry>
   
   <entry>
+    <title>Spring Integration Websocket</title>
+    <link href="https://dsolvers.github.io/post/2018/08/27/spring-intergration-websocket/"/>
+    <id>https://dsolvers.github.io/post/2018/08/27/spring-intergration-websocket/</id>
+    <published>2018-08-26T17:11:27.000Z</published>
+    <updated>2018-12-09T10:23:24.631Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一-依赖（这里只列举了websocket相关依赖）&quot;&gt;&lt;a href=&quot;#一-依赖（这里只列举了websocket相关依赖）&quot; class=&quot;headerlink&quot; title=&quot;一. 依赖（这里只列举了websocket相关依赖）&quot;&gt;&lt;/a&gt;一.
+        
+      
+    
+    </summary>
+    
+      <category term="Websocket" scheme="https://dsolvers.github.io/categories/Websocket/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="Spring" scheme="https://dsolvers.github.io/tags/Spring/"/>
+    
+      <category term="Websocket" scheme="https://dsolvers.github.io/tags/Websocket/"/>
+    
+  </entry>
+  
+  <entry>
     <title>RESTful HTTP</title>
     <link href="https://dsolvers.github.io/post/2018/06/27/restful-http/"/>
     <id>https://dsolvers.github.io/post/2018/06/27/restful-http/</id>
@@ -245,6 +275,34 @@
   </entry>
   
   <entry>
+    <title>Java GC</title>
+    <link href="https://dsolvers.github.io/post/2018/06/15/java-gc/"/>
+    <id>https://dsolvers.github.io/post/2018/06/15/java-gc/</id>
+    <published>2018-06-15T05:15:27.000Z</published>
+    <updated>2018-12-08T17:02:29.815Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-Java虚拟机内存区域&quot;&gt;&lt;a href=&quot;#一-Java虚拟机内存区域&quot; class=&quot;headerlink&quot; title=&quot;一. Java虚拟机内存区域&quot;&gt;&lt;/a&gt;一. Java虚拟机内存区域&lt;/h2&gt;&lt;h3 id=&quot;1-运行时数据区&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
+    
+      <category term="GC" scheme="https://dsolvers.github.io/tags/GC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java Collection Frame</title>
     <link href="https://dsolvers.github.io/post/2018/06/15/java-collection-frame/"/>
     <id>https://dsolvers.github.io/post/2018/06/15/java-collection-frame/</id>
@@ -270,34 +328,6 @@
       <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
     
       <category term="Collection" scheme="https://dsolvers.github.io/tags/Collection/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java GC</title>
-    <link href="https://dsolvers.github.io/post/2018/06/15/java-gc/"/>
-    <id>https://dsolvers.github.io/post/2018/06/15/java-gc/</id>
-    <published>2018-06-15T05:15:27.000Z</published>
-    <updated>2018-12-08T17:02:29.815Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一-Java虚拟机内存区域&quot;&gt;&lt;a href=&quot;#一-Java虚拟机内存区域&quot; class=&quot;headerlink&quot; title=&quot;一. Java虚拟机内存区域&quot;&gt;&lt;/a&gt;一. Java虚拟机内存区域&lt;/h2&gt;&lt;h3 id=&quot;1-运行时数据区&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Java" scheme="https://dsolvers.github.io/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://dsolvers.github.io/tags/Java/"/>
-    
-      <category term="GC" scheme="https://dsolvers.github.io/tags/GC/"/>
     
   </entry>
   
